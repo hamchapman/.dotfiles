@@ -1,0 +1,38 @@
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Ruby & Rails #
+######################
+.bundle
+.pid
+*.rbc
+capybara-*.html
+.rspec
+/log
+/tmp
+/db/*.sqlite3
+/public/system
+/coverage/
+/spec/tmp
+**.orig
+rerun.txt
+/vendor/bundle
+.rvmrc
+
+# Vim #
+######################
+*~
+*.swp
+*.swo
+
+# Personal additions #
+######################
+DESIRED_CHANGES.md
+.envrc

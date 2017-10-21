@@ -1,0 +1,84 @@
+setopt promptsubst
+
+export EDITOR='subl -w'
+export GOPATH="/Users/hami/go"
+
+export PATH=/usr/local/bin:/bin:/sbin:/usr/bin:/usr/local/sbin:/usr/local/go/bin:$PATH
+export PATH="$PATH:$GOPATH/bin" # Add ~/go/bin to PATH
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+
+source $HOME/.dotfiles/zsh/aliases
+source $HOME/.dotfiles/zsh/completions
+source $HOME/.dotfiles/zsh/history
+source $HOME/.dotfiles/zsh/secret
+source $HOME/.dotfiles/zsh/vcs
+
+
+# command timings
+
+strlen () {
+  FOO=$1
+  local zero='%([BSUbfksu]|([FB]|){*})'
+  LEN=${#${(S%%)FOO//$~zero/}}
+  echo $LEN
+}
+
+# show right prompt with date ONLY when command is executed
+preexec () {
+  DATE=$( date +"%H:%M:%S" )
+  local len_right=$( strlen "$DATE" )
+  len_right=$(( $len_right+1 ))
+  local right_start=$(($COLUMNS - $len_right))
+
+  local len_cmd=$( strlen "$@" )
+  local len_prompt=$(strlen "$PROMPT" )
+  local len_left=$(($len_cmd+$len_prompt))
+
+  RDATE="\033[${right_start}C ${DATE}"
+
+  if [ $len_left -lt $right_start ]; then
+    # command does not overwrite right prompt
+    # ok to move up one line
+    echo -e "\033[1A${RDATE}"
+  else
+    echo -e "${RDATE}"
+  fi
+}
+
+## Randoms
+
+if which swiftenv > /dev/null; then eval "$(swiftenv init -)"; fi
+
+openx () {
+  # http://orta.github.io/rebase/on/opening-xcode-projects-and-workspaces/
+
+  if test -n "$(find . -maxdepth 1 -name '*.xcworkspace' -print -quit)"; then
+    open *.xcworkspace
+  else
+    if test -n "$(find . -maxdepth 1 -name '*.xcodeproj' -print -quit)"; then
+      open *.xcodeproj
+    else
+      echo "No Xcode workspace or project found"
+    fi
+  fi
+}
+
+eval "$(direnv hook zsh)"
+eval "$(hub alias -s)"
+
+# added by travis gem
+[ -f /Users/hami/.travis/travis.sh ] && source /Users/hami/.travis/travis.sh
+
+function gittd { git tag -d $1 && git push origin :refs/tags/$1; }
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+
+# Setting up the actual prompt
+
+precmd() {
+  vcs_info
+  PROMPT="%2~$(prompt_git) %F{magenta}❯ %f"
+}

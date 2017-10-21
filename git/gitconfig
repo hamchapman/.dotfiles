@@ -1,0 +1,45 @@
+[user]
+  name = Hamilton Chapman
+  email = hamchapman@gmail.com
+  signingkey = BDBC79D0
+[alias]
+  st = status
+  br = branch
+  co = checkout
+  di = diff
+  amend = commit --amend
+  fa = fetch --all
+  l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  prune-local = !git branch --merged | tr -d '*' | grep -v dev | xargs -n1 git branch -d
+[core]
+  excludesfile = ~/.gitignore_global
+[commit]
+  gpgsign = true
+[push]
+  default = simple
+[credential]
+  helper = store
+[url "git@github.com:"]
+  insteadOf = https://github.com/
+[color]
+  ui = always
+[color "diff-highlight"]
+  oldNormal = red
+  oldHighlight = red 52
+  newNormal = green
+  newHighlight = green 22
+[color "diff"]
+  commit = green
+  meta = yellow
+  frag = cyan
+  old = red
+  new = green
+  whitespace = red reverse
+[help]
+  autocorrect = 1
+[pull]
+  rebase = true
+[credential]
+  helper = osxkeychain
+[hub]
+  protocol = https
