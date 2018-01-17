@@ -1,15 +1,31 @@
-alias migrate='rake db:migrate; RAILS_ENV=test rake db:migrate;'
-alias gitx='open -a gitx .'
-alias gsu='git submodule update'
-alias gsui='git submodule update -i'
-alias be='bundle exec'
-alias pglobal='cd ~/pusher/pusher-global'
-alias pdash='cd ~/pusher/dash'
+# git
+
 alias g='git status'
 alias gl='git l'
 alias ga='git add -p'
-alias p='cd ~/pusher'
+alias gsui='git submodule update -i'
+alias gsu='git submodule update'
+
+# ruby / rails
+
 alias fs='foreman start'
+alias be='bundle exec'
+alias migrate='rake db:migrate; RAILS_ENV=test rake db:migrate;'
+
+# cd shortcuts
+
+alias dotfiles='cd ~/.dotfiles'
+alias scratch='cd ~/.scratch'
+
+# pusher
+
+alias p='cd ~/pusher'
+alias pglobal='cd ~/pusher/pusher-global'
+alias pdash='cd ~/pusher/dash'
+
+# misc
+
+alias gitx='open -a gitx .'
 alias reload='source ~/.zshrc'
 alias toggleShowFiles='if (defaults read com.apple.finder AppleShowAllFiles | grep -q YES); then defaults write com.apple.finder AppleShowAllFiles NO; else defaults write com.apple.finder AppleShowAllFiles YES; fi
 killall Finder /System/Library/CoreServices/Finder.app'

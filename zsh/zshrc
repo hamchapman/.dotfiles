@@ -6,6 +6,7 @@ export GOPATH="/Users/hami/go"
 export PATH=/usr/local/bin:/bin:/sbin:/usr/bin:/usr/local/sbin:/usr/local/go/bin:$PATH
 export PATH="$PATH:$GOPATH/bin" # Add ~/go/bin to PATH
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH="$PATH:$HOME/.cargo/bin"
 
 source $HOME/.dotfiles/zsh/aliases
 source $HOME/.dotfiles/zsh/completions
@@ -99,6 +100,8 @@ function gittd { git tag -d $1 && git push origin :refs/tags/$1; }
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session as a function*
 
 
 # Setting up the actual prompt
