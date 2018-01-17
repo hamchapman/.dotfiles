@@ -15,6 +15,7 @@ alias migrate='rake db:migrate; RAILS_ENV=test rake db:migrate;'
 # cd shortcuts
 
 alias dotfiles='cd ~/.dotfiles'
+alias projects='cd ~/projects'
 alias scratch='cd ~/scratch'
 
 # pusher
