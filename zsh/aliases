@@ -17,6 +17,7 @@ alias migrate='rake db:migrate; RAILS_ENV=test rake db:migrate;'
 alias xdo='cd ~/.dotfiles'
 alias xpr='cd ~/projects'
 alias xsc='cd ~/scratch'
+alias xjo='cd ~/projects/jottly'
 
 # pusher
 
