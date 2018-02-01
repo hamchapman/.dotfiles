@@ -4,7 +4,7 @@ export EDITOR='subl -w'
 export GOPATH="/Users/hami/go"
 export JAVA_HOME="/Applications/Android Studio.app/Contents/jre/jdk/Contents/Home"
 
-export PATH=/usr/local/bin:/bin:/sbin:/usr/bin:/usr/local/sbin:/usr/local/go/bin:$PATH
+export PATH=/usr/local/bin:/bin:/sbin:/usr/bin:/usr/local/sbin:/usr/sbin:/usr/local/go/bin:$PATH
 export PATH="$PATH:$GOPATH/bin" # Add ~/go/bin to PATH
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export PATH="$PATH:$HOME/.cargo/bin"
