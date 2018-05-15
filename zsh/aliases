@@ -5,6 +5,7 @@ alias gl='git l'
 alias ga='git add -p'
 alias gsui='git submodule update -i'
 alias gsu='git submodule update'
+alias gpu='git push -u origin HEAD'
 
 # ruby / rails
 
