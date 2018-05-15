@@ -32,6 +32,10 @@ rerun.txt
 *.swp
 *.swo
 
+# Redis #
+######################
+dump.rdb
+
 # Personal additions #
 ######################
 DESIRED_CHANGES.md
