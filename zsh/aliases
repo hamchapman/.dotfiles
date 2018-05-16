@@ -31,5 +31,6 @@ alias pdash='cd ~/pusher/dash'
 alias s='subl .'
 alias gitx='open -a gitx .'
 alias reload='source ~/.zshrc'
-alias toggleShowFiles='if (defaults read com.apple.finder AppleShowAllFiles | grep -q YES); then defaults write com.apple.finder AppleShowAllFiles NO; else defaults write com.apple.finder AppleShowAllFiles YES; fi
+alias thidd='if (defaults read com.apple.finder AppleShowAllFiles | grep -q YES); then defaults write com.apple.finder AppleShowAllFiles NO; else defaults write com.apple.finder AppleShowAllFiles YES; fi
+killall Finder /System/Library/CoreServices/Finder.app'
 killall Finder /System/Library/CoreServices/Finder.app'
