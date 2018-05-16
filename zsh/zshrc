@@ -14,6 +14,7 @@ source $HOME/.dotfiles/zsh/completions
 source $HOME/.dotfiles/zsh/functions
 source $HOME/.dotfiles/zsh/history
 source $HOME/.dotfiles/zsh/keybindings
+source $HOME/.dotfiles/zsh/pusher
 source $HOME/.dotfiles/zsh/secret
 source $HOME/.dotfiles/zsh/vcs
 
