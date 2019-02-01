@@ -74,6 +74,14 @@ if [[ "$TERM_PROGRAM" == "Apple_Terminal" ]] && [[ -z "$INSIDE_EMACS" ]]; then
   update_terminalapp_cwd
 fi
 
+# make GPG stuff work
+
+GPG_AGENT_SOCKET="$(gpgconf --list-dirs agent-ssh-socket)"
+if [ ! -S $GPG_AGENT_SOCKET ]; then
+  gpg-agent --daemon --pinentry-program /usr/local/bin/pinentry-mac >/dev/null 2>&1
+  export GPG_TTY=$(tty)
+fi
+
 ## Randoms
 
 if which swiftenv > /dev/null; then eval "$(swiftenv init -)"; fi

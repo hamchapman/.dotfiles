@@ -1,7 +1,7 @@
 [user]
   name = Hamilton Chapman
   email = hamchapman@gmail.com
-  signingkey = BDBC79D0
+  signingkey = AD7B94DA
 [alias]
   st = status
   br = branch
@@ -43,3 +43,5 @@
   helper = osxkeychain
 [hub]
   protocol = https
+[gpg]
+  program = /usr/local/bin/gpg
