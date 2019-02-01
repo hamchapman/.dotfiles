@@ -18,8 +18,7 @@ source $HOME/.dotfiles/zsh/pusher
 source $HOME/.dotfiles/zsh/secret
 source $HOME/.dotfiles/zsh/vcs
 
-# command timings
-
+# Command timings
 strlen () {
   FOO=$1
   local zero='%([BSUbfksu]|([FB]|){*})'
@@ -27,7 +26,7 @@ strlen () {
   echo $LEN
 }
 
-# show right prompt with date ONLY when command is executed
+# Show right prompt with date ONLY when command is executed
 preexec () {
   DATE=$( date +"%H:%M:%S" )
   local len_right=$( strlen "$DATE" )
@@ -50,9 +49,8 @@ preexec () {
 }
 
 # Keep Apple Terminal.app's current working directory updated
-# Based on this answer: http://superuser.com/a/315029
-# With extra fixes to handle multibyte chars and non-UTF-8 locales
-
+# based on this answer: http://superuser.com/a/315029
+# with extra fixes to handle multibyte chars and non-UTF-8 locales
 if [[ "$TERM_PROGRAM" == "Apple_Terminal" ]] && [[ -z "$INSIDE_EMACS" ]]; then
   # Emits the control sequence to notify Terminal.app of the cwd
   # Identifies the directory using a file: URI scheme, including
@@ -108,14 +106,14 @@ eval "$(hub alias -s)"
 
 function gittd { git tag -d $1 && git push ${2:-origin} :refs/tags/$1; }
 
+# Load NVM
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session as a function*
+# Load RVM into a shell session as a function*
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
-
-# Setting up the actual prompt
-
+# Set up the actual prompt
 precmd() {
   vcs_info
   PROMPT="%2~$(prompt_git) %F{magenta}❯ %f"
