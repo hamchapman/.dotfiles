@@ -105,6 +105,7 @@ eval "$(hub alias -s)"
 [ -f /Users/ham/.travis/travis.sh ] && source /Users/ham/.travis/travis.sh
 
 function gittd { git tag -d $1 && git push ${2:-origin} :refs/tags/$1; }
+function gcm { git commit -m $1 }
 
 # Load NVM
 export NVM_DIR="$HOME/.nvm"
