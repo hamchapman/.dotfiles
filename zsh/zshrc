@@ -1,11 +1,11 @@
 setopt promptsubst
 
 export EDITOR='subl -w'
-export GOPATH="/Users/hami/go"
+export GOPATH="/Users/ham/go"
 export JAVA_HOME="/Applications/Android Studio.app/Contents/jre/jdk/Contents/Home"
 
 export PATH=/usr/local/bin:/bin:/sbin:/usr/bin:/usr/local/sbin:/usr/sbin:/usr/local/go/bin:$PATH
-export PATH="$PATH:$GOPATH/bin" # Add ~/go/bin to PATH
+export PATH="$PATH:$GOPATH/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
 
@@ -104,7 +104,7 @@ eval "$(direnv hook zsh)"
 eval "$(hub alias -s)"
 
 # added by travis gem
-[ -f /Users/hami/.travis/travis.sh ] && source /Users/hami/.travis/travis.sh
+[ -f /Users/ham/.travis/travis.sh ] && source /Users/ham/.travis/travis.sh
 
 function gittd { git tag -d $1 && git push ${2:-origin} :refs/tags/$1; }
 
