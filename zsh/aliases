@@ -9,27 +9,17 @@ alias gpu='git push -u origin HEAD'
 alias gds='git diff --staged'
 alias gca='git commit --amend --no-edit'
 
-# ruby / rails
-
-alias fs='foreman start'
-alias be='bundle exec'
-alias migrate='rake db:migrate; RAILS_ENV=test rake db:migrate;'
-
 # cd shortcuts
 
 alias xdo='cd ~/.dotfiles'
+alias xdf='cd ~/.dotfiles'
 alias xpr='cd ~/projects'
 alias xsc='cd ~/scratch'
 alias xjo='cd ~/projects/jottly'
 
-# pusher
-
-alias p='cd ~/pusher'
-alias pglobal='cd ~/pusher/pusher-global'
-alias pdash='cd ~/pusher/dash'
-
 # misc
 
+alias be='bundle exec'
 alias s='subl .'
 alias gitx='open -a gitx .'
 alias reload='source ~/.zshrc'

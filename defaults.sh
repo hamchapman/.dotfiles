@@ -97,7 +97,7 @@ if command -v dockutil; then
   dockutil --add "/Applications/Things.app"
   dockutil --add "/Applications/Sublime Text.app"
   dockutil --add "/Applications/Xcode.app"
-  dockutil --add "/Applications/Terminal.app"
+  dockutil --add "/Applications/Utilities/Terminal.app"
   dockutil --add "/Applications/Slack.app"
   dockutil --add "/Applications/Telegram.app"
   dockutil --add "/Applications/WhatsApp.app"
@@ -131,7 +131,7 @@ defaults write com.apple.Terminal "Default Window Settings" -string "Chalk"
 defaults write com.apple.Terminal "Startup Window Settings" -string "Chalk"
 
 # Set login command to make it not noisy on open
-defaults write com.apple.Terminal "Shell" -string "login -fpql ham /usr/login/bin/zsh"
+defaults write com.apple.Terminal "Shell" -string "login -fpql ham /usr/local/bin/zsh"
 
 
 
@@ -301,6 +301,9 @@ defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool false
 defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
 defaults write com.apple.finder ShowMountedServersOnDesktop -bool false
 defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool false
+
+# Hide dotfiles
+defaults write com.apple.finder AppleShowAllFiles -bool false
 
 # Finder: disable window animations and Get Info animations
 defaults write com.apple.finder DisableAllAnimations -bool true
