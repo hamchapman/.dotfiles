@@ -3,6 +3,42 @@
 
 set -euo pipefail
 
+asksure() {
+	echo -n "Are you sure (Y/N)? "
+	while read -r -n 1 -s answer; do
+	  if [[ $answer = [YyNn] ]]; then
+	    [[ $answer = [Yy] ]] && retval=0
+	    [[ $answer = [Nn] ]] && retval=1
+	    break
+	  fi
+	done
+
+	echo # just a final linefeed, optics...
+
+	return $retval
+}
+
+echo "Sign in to App Store"
+open -a "App Store"
+
+echo "Press y once you've signed into the App Store"
+
+if asksure; then
+	mas account
+
+	retVal=$?
+	if [ $retVal -ne 0 ]; then
+	    echo "Failed to sign into App Store"
+	    exit $retVal
+	else
+		echo "Signed into App Store"
+	fi
+else
+	echo "Failed to sign into App Store"
+	exit 1
+fi
+
+# Create file for secrets
 touch ./zsh/secret
 
 # Do some useful linking
@@ -21,6 +57,15 @@ open ./terminal_themes/Chalk.terminal
 brew bundle --file="./Brewfile"
 brew bundle --file="./Brewfile.cask"
 
+# Remove brew cruft
+brew cleanup
+
+# Install App Store apps
+mas install 1384080005 # Tweetbot 3
+mas install 904280696 # Things 3
+mas install 1091189122 # Bear
+
+# Add ssh key to keychain
 ssh-add -K ~/.ssh/id_ed25519
 
 # Set many default settings

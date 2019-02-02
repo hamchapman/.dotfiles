@@ -47,11 +47,12 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText -
 # Dock
 #
 
-# Set the icon size of Dock items to 36 pixels
-defaults write com.apple.dock tilesize -int 36
+# Set the icon size of Dock items to 48 pixels
+defaults write com.apple.dock tilesize -int 48
 
-# Disable dock magification
+# Enable dock magification
 defaults write com.apple.dock magnification -bool true
+defaults write com.apple.dock largesize -int 60
 
 # Put the dock on left side
 defaults write com.apple.dock orientation -string "bottom"
@@ -60,8 +61,11 @@ defaults write com.apple.dock orientation -string "bottom"
 defaults write com.apple.dock autohide -bool true
 
 # Change the auto-hiding Dock delay
-defaults write com.apple.dock autohide-delay -float 0.0
-defaults write com.apple.dock autohide-time-modifier -float 0.0
+defaults write com.apple.dock autohide-delay -float 0.2
+defaults write com.apple.dock autohide-time-modifier -float 0.2
+
+# Minimize windows to application
+defaults write com.apple.dock minimize-to-application -bool true
 
 # Show indicator lights for open applications in the Dock
 defaults write com.apple.dock show-process-indicators -bool true
@@ -94,7 +98,7 @@ if command -v dockutil; then
   dockutil --add "/Applications/Safari.app"
   dockutil --add "/Applications/Mail.app"
   dockutil --add "/Applications/Notes.app"
-  dockutil --add "/Applications/Things.app"
+  dockutil --add "/Applications/Things3.app"
   dockutil --add "/Applications/Sublime Text.app"
   dockutil --add "/Applications/Xcode.app"
   dockutil --add "/Applications/Utilities/Terminal.app"
