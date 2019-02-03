@@ -39,7 +39,7 @@ else
 fi
 
 # Create file for secrets
-touch ./zsh/secret
+touch $HOME/.dotfiles/zsh/secret
 
 # Do some useful linking
 ln -sf $HOME/.dotfiles/zsh/zshrc $HOME/.zshrc
@@ -50,8 +50,11 @@ ln -sf $HOME/.dotfiles/git/gitignore_global $HOME/.gitignore_global
 mkdir -p $HOME/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Ham
 ln -sf $HOME/.dotfiles/sublime/OceanicNext.tmTheme $HOME/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Ham/OceanicNext.tmTheme
 
+# Link Sublime Text preferences to the correct place
+ln -sf $HOME/.dotfiles/sublime/Preferences.sublime-settings $HOME/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Preferences.sublime-settings
+
 # Add Terminal.app theme
-open ./terminal_themes/Chalk.terminal
+open $HOME/.dotfiles/terminal_themes/Chalk.terminal
 
 # Install some default software
 brew bundle --file="./Brewfile"
@@ -66,7 +69,7 @@ mas install 904280696 # Things 3
 mas install 1091189122 # Bear
 
 # Add ssh key to keychain
-ssh-add -K ~/.ssh/id_ed25519
+ssh-add -K $HOME/.ssh/id_ed25519
 
 # Set many default settings
-./defaults.sh
+$HOME/.dotfiles/defaults.sh
