@@ -17,6 +17,9 @@ alias xpr='cd ~/projects'
 alias xsc='cd ~/scratch'
 alias xjo='cd ~/projects/jottly'
 
+# ditto
+alias d='cd ~/ditto'
+
 # misc
 
 alias be='bundle exec'
