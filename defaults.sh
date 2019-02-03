@@ -207,8 +207,10 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 15
 #
 
 # Trackpad: enable tap to click for this user and for the login screen
+defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
 # Trackpad: enable bottom right corner to right-click
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
@@ -220,17 +222,17 @@ defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryCli
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerTapGesture -int 0
 defaults -currentHost write NSGlobalDomain com.apple.trackpad.threeFingerTapGesture -int 0
 
-# Trackpad: disable two finger pinch
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadPinch -int 0
-defaults -currentHost write NSGlobalDomain com.apple.trackpad.pinchGesture -int 0
+# Trackpad: enable two finger pinch
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadPinch -int 1
+defaults -currentHost write NSGlobalDomain com.apple.trackpad.pinchGesture -int 1
 
 # Trackpad: 'smart zoom' two finger double tap
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadTwoFingerDoubleTapGesture -int 0
 defaults -currentHost write NSGlobalDomain com.apple.trackpad.twoFingerDoubleTapGesture -int 0
 
-# Trackpad: disable trackpad rotate
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRotate -int 0
-defaults -currentHost write NSGlobalDomain com.apple.trackpad.rotateGesture -int 0
+# Trackpad: enable trackpad rotate
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRotate -int 1
+defaults -currentHost write NSGlobalDomain com.apple.trackpad.rotateGesture -int 1
 
 # Trackpad: disable swipe from right to show notification center
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadTwoFingerFromRightEdgeSwipeGesture -int 0
