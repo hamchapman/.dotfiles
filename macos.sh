@@ -57,8 +57,8 @@ ln -sf $HOME/.dotfiles/sublime/Preferences.sublime-settings $HOME/Library/Applic
 open $HOME/.dotfiles/terminal_themes/Chalk.terminal
 
 # Install some default software
-brew bundle --file="./Brewfile"
-brew bundle --file="./Brewfile.cask"
+brew bundle --file="$HOME/.dotfiles/Brewfile"
+brew bundle --file="$HOME/.dotfiles/Brewfile.cask"
 
 # Remove brew cruft
 brew cleanup

@@ -44,6 +44,14 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText -
 
 
 #
+# Menubar
+#
+
+# Auto hide/show the menubar
+defaults write NSGlobalDomain _HIHideMenuBar -bool true
+
+
+#
 # Dock
 #
 
