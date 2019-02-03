@@ -137,6 +137,10 @@ defaults write com.apple.Terminal "Startup Window Settings" -string "Chalk"
 # Set login command to make it not noisy on open
 defaults write com.apple.Terminal "Shell" -string "login -fpql ham /usr/local/bin/zsh"
 
+# Close Terminal without warnings
+/usr/libexec/PlistBuddy "$HOME/Library/Preferences/com.apple.Terminal.plist" \
+    -c "add ':Window Settings:ham:warnOnShellCloseAction' integer 0"
+
 
 
 #
