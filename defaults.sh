@@ -28,6 +28,9 @@ defaults write NSGlobalDomain ApplePersistence -bool false
 # Dark UI
 defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
 
+# Enable tabbing to move focus between all controls
+defaults write NSGlobalDomain AppleKeyboardUIMode -int 2
+
 
 #
 # Desktop & Screen Saver
@@ -211,6 +214,15 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 15
 
 
 #
+# Touchbar
+#
+
+# Press function key to show full control strip
+defaults write com.apple.touchbar.agent PresentationModeFnModes -dict \
+  appWithControlStrip -string "fullControlStrip"
+
+
+#
 # Mouse/Trackpad
 #
 
@@ -378,6 +390,8 @@ defaults write com.apple.finder AppleWindowTabbingMode -string "manual"
 
 # Show item info near icons on the desktop and in other icon views
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy name" ~/Library/Preferences/com.apple.finder.plist
 
 # Increase grid spacing for icons on the desktop and in other icon views
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:gridSpacing 64" ~/Library/Preferences/com.apple.finder.plist
@@ -385,10 +399,36 @@ defaults write com.apple.finder AppleWindowTabbingMode -string "manual"
 # Increase the size of icons on the desktop and in other icon views
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:iconSize 64" ~/Library/Preferences/com.apple.finder.plist
 
-# Set the finder window toolbar to only have back/forward buttons
-/usr/libexec/PlistBuddy -c "Delete :NSToolbar\\ Configuration\\ Browser:TB\\ Item\\ Identifiers" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Add :NSToolbar\\ Configuration\\ Browser:TB\\ Item\\ Identifiers array" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Add :NSToolbar\\ Configuration\\ Browser:TB\\ Item\\ Identifiers:0 string com.apple.finder.BACK" ~/Library/Preferences/com.apple.finder.plist
+# Set the finder window toolbar to have slightly altered icons
+defaults write com.apple.finder "NSToolbar Configuration Browser" '{
+  "TB Default Item Identifiers" =     (
+    "com.apple.finder.BACK",
+    NSToolbarFlexibleSpaceItem,
+    "com.apple.finder.SWCH",
+    "com.apple.finder.ARNG",
+    "com.apple.finder.ACTN",
+    "com.apple.finder.SHAR",
+    "com.apple.finder.LABL",
+    NSToolbarFlexibleSpaceItem,
+    NSToolbarFlexibleSpaceItem,
+    "com.apple.finder.SRCH"
+  );
+  "TB Display Mode" = 2;
+  "TB Item Identifiers" =     (
+    "com.apple.finder.BACK",
+    NSToolbarFlexibleSpaceItem,
+    "com.apple.finder.SWCH",
+    "com.apple.finder.ARNG",
+    "com.apple.finder.ACTN",
+    "com.apple.finder.SHAR",
+    NSToolbarFlexibleSpaceItem,
+    NSToolbarFlexibleSpaceItem,
+    "com.apple.finder.SRCH"
+  );
+}'
+
+# When performing a search, search the current folder by default
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 
 # Remove all tags from contextual menu
 /usr/libexec/PlistBuddy -c "Delete :FavoriteTagNames" ~/Library/Preferences/com.apple.finder.plist
@@ -621,5 +661,9 @@ defaults write com.apple.dt.Xcode IDECommandClickNavigates -bool YES
 #
 # Third Party
 #
+
+# Contexts
+defaults write com.contextsformac.Contexts CTAppearanceTheme CTAppearanceNamedVibrantDark
+defaults write com.contextsformac.Contexts CTPreferenceSidebarDisplayMode CTDisplayModeNone
 
 echo "Done. Note that some of these changes require a logout/restart to take effect."

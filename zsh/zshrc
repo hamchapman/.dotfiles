@@ -1,13 +1,15 @@
 setopt promptsubst
 
 export EDITOR='subl -w'
-export GOPATH="/Users/ham/go"
+export GOPATH="$HOME/go"
 export JAVA_HOME="/Applications/Android Studio.app/Contents/jre/jdk/Contents/Home"
+export NDK_HOME="$HOME/Library/Android/sdk/ndk-bundle"
 
-export PATH=/usr/local/bin:/bin:/sbin:/usr/bin:/usr/local/sbin:/usr/sbin:/usr/local/go/bin:$PATH
+export PATH="/usr/local/bin:/bin:/sbin:/usr/bin:/usr/local/sbin:/usr/sbin:/usr/local/go/bin:$PATH"
 export PATH="$PATH:$GOPATH/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
+export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH" # gnu-sed
 
 source $HOME/.dotfiles/zsh/aliases
 source $HOME/.dotfiles/zsh/completions

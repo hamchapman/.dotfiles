@@ -1,5 +1,4 @@
 # git
-
 alias g='git status'
 alias gl='git l'
 alias ga='git add -p'
@@ -10,18 +9,15 @@ alias gds='git diff --staged'
 alias gca='git commit --amend --no-edit'
 
 # cd shortcuts
-
 alias xdo='cd ~/.dotfiles'
 alias xdf='cd ~/.dotfiles'
 alias xpr='cd ~/projects'
 alias xsc='cd ~/scratch'
-alias xjo='cd ~/projects/jottly'
 
 # ditto
 alias d='cd ~/ditto'
 
 # misc
-
 alias be='bundle exec'
 alias s='subl .'
 alias gitx='open -a gitx .'
