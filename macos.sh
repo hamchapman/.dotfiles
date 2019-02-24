@@ -65,6 +65,7 @@ brew cleanup
 
 # Install App Store apps
 mas install 1091189122 # Bear
+mas install 975937182 # Fantastical 2
 mas install 904280696 # Things 3
 mas install 1384080005 # Tweetbot 3
 
