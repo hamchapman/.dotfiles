@@ -10,6 +10,7 @@ export PATH="$PATH:$GOPATH/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH" # gnu-sed
+export PATH="$PATH:$HOME/Library/Android/sdk/platform-tools"
 
 source $HOME/.dotfiles/zsh/aliases
 source $HOME/.dotfiles/zsh/completions
