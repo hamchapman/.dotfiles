@@ -26,4 +26,4 @@ alias thidd='if (defaults read com.apple.finder AppleShowAllFiles | grep -q YES)
 killall Finder /System/Library/CoreServices/Finder.app'
 alias tdesk='if (defaults read com.apple.finder CreateDesktop | grep -q true); then defaults write com.apple.finder CreateDesktop false; else defaults write com.apple.finder CreateDesktop true; fi
 killall Finder /System/Library/CoreServices/Finder.app'
-alias prune='brew cleanup && gem cleanup && docker system prune'
+alias prune='brew cleanup && gem cleanup && docker system prune && xcrun simctl delete unavailable'
