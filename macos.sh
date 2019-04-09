@@ -74,3 +74,5 @@ ssh-add -K $HOME/.ssh/id_ed25519
 
 # Set many default settings
 $HOME/.dotfiles/defaults.sh
+
+open /usr/local/Caskroom/backblaze/latest/Backblaze\ Installer.app
