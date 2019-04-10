@@ -107,9 +107,6 @@ eval "$(hub alias -s)"
 # added by travis gem
 [ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
 
-function gittd { git tag -d $1 && git push ${2:-origin} :refs/tags/$1; }
-function gcm { git commit -m $1 }
-
 # Load NVM
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
