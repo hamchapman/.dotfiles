@@ -6,6 +6,7 @@ alias gsui='git submodule update -i'
 alias gsu='git submodule update'
 alias gds='git diff --staged'
 alias gca='git commit --amend --no-edit'
+alias gbrr='git branch --sort=-committerdate'
 
 # cd shortcuts
 alias xdo='cd ~/.dotfiles'
