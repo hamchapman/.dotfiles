@@ -63,6 +63,9 @@ brew bundle --file="$HOME/.dotfiles/Brewfile.cask"
 # Remove brew cruft
 brew cleanup
 
+# Ensure that Ruby gems directory exists
+mkdir $HOME/.gem
+
 # Install App Store apps
 mas install 1091189122 # Bear
 mas install 975937182 # Fantastical 2

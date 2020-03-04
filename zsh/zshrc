@@ -4,12 +4,13 @@ export EDITOR='subl -w'
 export GOPATH="$HOME/go"
 export JAVA_HOME="/Applications/Android Studio.app/Contents/jre/jdk/Contents/Home"
 export NDK_HOME="$HOME/Library/Android/sdk/ndk-bundle"
+export GEM_HOME="$HOME/.gem"
 
 export PATH="/usr/local/bin:/bin:/sbin:/usr/bin:/usr/local/sbin:/usr/sbin:/usr/local/go/bin:$PATH"
+export PATH="$PATH:$HOME/.gem/bin"
 export PATH="$PATH:$GOPATH/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
-export PATH="$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
-export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH" # gnu-sed
+export PATH="$PATH:/usr/local/opt/gnu-sed/libexec/gnubin" # gnu-sed
 export PATH="$PATH:$HOME/Library/Android/sdk/platform-tools"
 
 source $HOME/.dotfiles/zsh/aliases
@@ -111,12 +112,13 @@ eval "$(hub alias -s)"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-# Load RVM into a shell session as a function*
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source $HOME/.rvm/scripts/rvm
-
 # Load gcloud things
 source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
 source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
+
+# Ruby
+source /usr/local/opt/chruby/share/chruby/chruby.sh
+source /usr/local/opt/chruby/share/chruby/auto.sh
 
 # Set up the actual prompt
 precmd() {

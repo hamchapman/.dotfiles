@@ -2,11 +2,15 @@
 alias g='git status'
 alias gl='git l'
 alias ga='git add -p'
-alias gsui='git submodule update -i'
-alias gsu='git submodule update'
+alias gs='git s'
+alias gb='git checkout -'
+alias ggo='git go'
 alias gds='git diff --staged'
 alias gca='git commit --amend --no-edit'
+alias gsu='git submodule update'
+alias gsui='git submodule update -i'
 alias gbrr='git branch --sort=-committerdate'
+alias gcon='git contributors'
 
 # cd shortcuts
 alias xdo='cd ~/.dotfiles'
@@ -16,15 +20,14 @@ alias xsc='cd ~/scratch'
 
 # ditto
 alias d='cd ~/ditto'
+alias ddd='cd ~/ditto/ditto'
 
 # misc
-alias be='bundle exec'
 alias s='subl .'
+alias reload='source ~/.zshrc'
+alias be='bundle exec'
 alias gitx='open -a gitx .'
 alias gtt='gittower .'
-alias reload='source ~/.zshrc'
-alias thidd='if (defaults read com.apple.finder AppleShowAllFiles | grep -q YES); then defaults write com.apple.finder AppleShowAllFiles NO; else defaults write com.apple.finder AppleShowAllFiles YES; fi
-killall Finder /System/Library/CoreServices/Finder.app'
+alias prune='brew cleanup && gem cleanup && docker system prune && xcrun simctl delete unavailable'
 alias tdesk='if (defaults read com.apple.finder CreateDesktop | grep -q true); then defaults write com.apple.finder CreateDesktop false; else defaults write com.apple.finder CreateDesktop true; fi
 killall Finder /System/Library/CoreServices/Finder.app'
-alias prune='brew cleanup && gem cleanup && docker system prune && xcrun simctl delete unavailable'
