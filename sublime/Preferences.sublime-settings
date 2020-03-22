@@ -20,7 +20,8 @@
 	"index_files": true,
 	"rulers":
 	[
-		80
+		80,
+		100
 	],
 	"tab_size": 2,
 	"theme": "Default.sublime-theme",
