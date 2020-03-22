@@ -6,21 +6,15 @@ export JAVA_HOME="/Applications/Android Studio.app/Contents/jre/jdk/Contents/Hom
 export NDK_HOME="$HOME/Library/Android/sdk/ndk-bundle"
 export GEM_HOME="$HOME/.gem"
 
-export PATH="/usr/local/bin:/bin:/sbin:/usr/bin:/usr/local/sbin:/usr/sbin:/usr/local/go/bin:$HOME/.dotfiles/bin:$PATH"
+export PATH="/usr/local/bin:/usr/bin:/usr/local/go/bin:$HOME/.dotfiles/bin:$PATH"
 export PATH="$PATH:$HOME/.gem/bin"
 export PATH="$PATH:$GOPATH/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:/usr/local/opt/gnu-sed/libexec/gnubin" # gnu-sed
 export PATH="$PATH:$HOME/Library/Android/sdk/platform-tools"
 
-source $HOME/.dotfiles/zsh/aliases
-source $HOME/.dotfiles/zsh/completions
-source $HOME/.dotfiles/zsh/functions
-source $HOME/.dotfiles/zsh/history
-source $HOME/.dotfiles/zsh/keybindings
-source $HOME/.dotfiles/zsh/pusher
-source $HOME/.dotfiles/zsh/secret
-source $HOME/.dotfiles/zsh/vcs
+# Load files
+for file ($HOME/.dotfiles/zsh/*.zsh) source $file
 
 # Command timings
 strlen () {
@@ -29,6 +23,9 @@ strlen () {
   LEN=${#${(S%%)FOO//$~zero/}}
   echo $LEN
 }
+
+# Timer
+REPORTTIME=10 # print elapsed time when more than 10 seconds
 
 # Show right prompt with date ONLY when command is executed
 preexec () {
