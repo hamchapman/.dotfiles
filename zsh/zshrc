@@ -6,7 +6,7 @@ export JAVA_HOME="/Applications/Android Studio.app/Contents/jre/jdk/Contents/Hom
 export NDK_HOME="$HOME/Library/Android/sdk/ndk-bundle"
 export GEM_HOME="$HOME/.gem"
 
-export PATH="/usr/local/bin:/bin:/sbin:/usr/bin:/usr/local/sbin:/usr/sbin:/usr/local/go/bin:$PATH"
+export PATH="/usr/local/bin:/bin:/sbin:/usr/bin:/usr/local/sbin:/usr/sbin:/usr/local/go/bin:$HOME/.dotfiles/bin:$PATH"
 export PATH="$PATH:$HOME/.gem/bin"
 export PATH="$PATH:$GOPATH/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
@@ -87,20 +87,6 @@ fi
 ## Randoms
 
 if which swiftenv > /dev/null; then eval "$(swiftenv init -)"; fi
-
-openx () {
-  # http://orta.github.io/rebase/on/opening-xcode-projects-and-workspaces/
-
-  if test -n "$(find . -maxdepth 1 -name '*.xcworkspace' -print -quit)"; then
-    open *.xcworkspace
-  else
-    if test -n "$(find . -maxdepth 1 -name '*.xcodeproj' -print -quit)"; then
-      open *.xcodeproj
-    else
-      echo "No Xcode workspace or project found"
-    fi
-  fi
-}
 
 eval "$(direnv hook zsh)"
 eval "$(hub alias -s)"
