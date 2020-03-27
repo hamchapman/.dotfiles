@@ -124,9 +124,9 @@ fi
 
 # Run hot corners script
 
-# Bottom left screen corner - lock screen
+# Bottom left screen corner when holding CMD key - lock screen
 defaults write com.apple.dock wvous-bl-corner -int 13
-defaults write com.apple.dock wvous-bl-modifier -int 0
+defaults write com.apple.dock wvous-bl-modifier -int 1048576
 
 
 #
