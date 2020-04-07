@@ -4,14 +4,14 @@ alias gl='git l'
 alias ga='git add -p'
 alias gs='git s'
 alias gb='git checkout -'
+alias grb='git rb'
+alias grba='git rba'
 alias ggo='git go'
 alias gds='git diff --staged'
 alias gca='git commit --amend --no-edit'
 alias gsu='git submodule update'
 alias gsui='git submodule update -i'
-alias gbrr='git branch --sort=-committerdate'
 alias gcon='git contributors'
-alias gitx='open -a gitx .'
 alias gtt='gittower .'
 
 # cd shortcuts
@@ -23,6 +23,9 @@ alias xsc='cd ~/scratch'
 # Ditto
 alias d='cd ~/ditto'
 alias ddd='cd ~/ditto/ditto'
+
+# Work
+alias gg='cd ~/ditto/ditto'
 
 # Editor
 alias s='subl .'
