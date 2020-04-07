@@ -45,6 +45,7 @@ touch $HOME/.dotfiles/zsh/secret
 ln -sf $HOME/.dotfiles/zsh/zshrc $HOME/.zshrc
 ln -sf $HOME/.dotfiles/git/gitconfig $HOME/.gitconfig
 ln -sf $HOME/.dotfiles/git/gitignore_global $HOME/.gitignore_global
+ln -sf $HOME/.dotfiles/.gemrc $HOME/.gemrc
 
 # Link Sublime Text theme to the correct place
 mkdir -p $HOME/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Ham
