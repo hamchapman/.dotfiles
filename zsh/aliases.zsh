@@ -1,4 +1,4 @@
-# Git
+## Git
 alias g='git status'
 alias gl='git l'
 alias ga='git add -p'
@@ -9,12 +9,16 @@ alias grba='git rba'
 alias ggo='git go'
 alias gds='git diff --staged'
 alias gca='git commit --amend --no-edit'
+alias grv='git remote -v'
+alias gcaa='git commit --amend'
 alias gsu='git submodule update'
 alias gsui='git submodule update -i'
 alias gcon='git contributors'
 alias gtt='gittower .'
 
-# cd shortcuts
+## cd shortcuts
+
+# General
 alias xdo='cd ~/.dotfiles'
 alias xdf='cd ~/.dotfiles'
 alias xpr='cd ~/projects'
@@ -27,14 +31,14 @@ alias ddd='cd ~/ditto/ditto'
 # Work
 alias gg='cd ~/ditto/ditto'
 
-# Editor
+## Editor
 alias s='subl .'
 alias c='code .'
 
-# macOS
+## macOS
 alias o='open .'
 
-# Misc
+## Misc
 alias reload='source ~/.zshrc'
 alias be='bundle exec'
 alias prune='brew cleanup && gem cleanup && docker system prune && xcrun simctl delete unavailable'
