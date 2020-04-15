@@ -59,3 +59,4 @@ function omz_urlencode() {
 function gittd { git tag -d $1 && git push ${2:-origin} :refs/tags/$1; }
 function gpu { git push -u ${1:-origin} HEAD }
 function gcm { git commit -m $1 }
+function gf { git fetch ${1:-origin} }

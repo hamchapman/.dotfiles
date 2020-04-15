@@ -1,5 +1,6 @@
 ## Git
 alias g='git status'
+alias gc='git commit'
 alias gl='git l'
 alias ga='git add -p'
 alias gs='git s'
