@@ -14,7 +14,7 @@
   # List contributors with number of commits
   contributors = shortlog --summary --numbered
   # Switch to a branch, creating it if necessary
-  go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
+  go = "!f() { git checkout \"$1\" 2> /dev/null || git checkout -b \"$1\" 2> /dev/null; }; f"
   # View the current working tree status using the short format
   s = status -s
   rba = !git branch --sort=\"-committerdate\" --format=\"%(color:green)%(committerdate:relative)%(color:reset) %(refname:short)\"

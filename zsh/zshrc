@@ -1,6 +1,6 @@
 setopt promptsubst
 
-export EDITOR='subl -w'
+export EDITOR='code -w'
 export GOPATH="$HOME/go"
 export JAVA_HOME="/Applications/Android Studio.app/Contents/jre/jdk/Contents/Home"
 export NDK_HOME="$HOME/Library/Android/sdk/ndk-bundle"
