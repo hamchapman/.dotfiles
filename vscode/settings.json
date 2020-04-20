@@ -1,14 +1,15 @@
 {
-    "window.zoomLevel": 0,
-
-    // Disable welcome screen on startup
-    "workbench.welcome.enabled": false,
-
     // Insert spaces when pressing Tab
     "editor.insertSpaces": true,
 
+    // Disable the minimap
+    "editor.minimap.enabled": false,
+
     // Controls whether the editor should render whitespace characters
     "editor.renderWhitespace": "selection",
+
+    // Set rulers at 80, 100, and 120 characters
+    "editor.rulers": [80, 100, 120],
 
     // When enabled, will trim trailing whitespace when you save a file
     "files.trimTrailingWhitespace": true,
@@ -21,17 +22,23 @@
         "**/.DS_Store": true
     },
 
-    "workbench.colorTheme": "Solarized Dark",
+    "window.zoomLevel": 0,
 
+    // Searching for multiple files and opening them will leave all files open
+    // rather than only leaving the most recently selected one open
+    "workbench.editor.enablePreview": false,
+
+    // Theme choices
+    "workbench.colorTheme": "Solarized Dark",
     "workbench.preferredDarkColorTheme": "Solarized Dark",
 
-    "workbench.startupEditor": "newUntitledFile",
+    // Disable welcome screen on startup
+    "workbench.welcome.enabled": false,
 
-    "editor.rulers": [80, 100, 120],
+    "workbench.startupEditor": "newUntitledFile",
 
     "[git-commit]": {
         "editor.rulers": [80],
         "editor.wordWrap": "on"
-    },
-    "editor.minimap.enabled": false
+    }
 }

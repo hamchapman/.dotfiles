@@ -7,7 +7,7 @@
   br = branch
   co = checkout
   di = diff
-  amend = commit --amend --cleanup=scissors
+  amend = commit --amend --verbose --cleanup=scissors
   fa = fetch --all
   l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
   prune-local = !git branch --merged | tr -d '*' | grep -v dev | xargs -n1 git branch -d
@@ -56,7 +56,5 @@
   rebase = true
 [credential]
   helper = osxkeychain
-[hub]
-  protocol = https
 [gpg]
   program = /usr/local/bin/gpg
