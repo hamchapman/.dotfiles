@@ -22,23 +22,33 @@
         "**/.DS_Store": true
     },
 
+    // Don't hide ignored files from search
+    "search.useIgnoreFiles": false,
+
     "window.zoomLevel": 0,
 
     // Searching for multiple files and opening them will leave all files open
     // rather than only leaving the most recently selected one open
     "workbench.editor.enablePreview": false,
 
+    // Set the maximum number of open editors to 10. Old, clean editors will be
+    // closed once the number exceeds 10.
+    "workbench.editor.limit.enabled": true,
+    "workbench.editor.limit.perEditorGroup": true,
+    "workbench.editor.limit.value": 5,
+
     // Theme choices
-    "workbench.colorTheme": "Solarized Dark",
+    "workbench.colorTheme": "Oceanic Next Sublime",
     "workbench.preferredDarkColorTheme": "Solarized Dark",
 
-    // Disable welcome screen on startup
-    "workbench.welcome.enabled": false,
-
+    // Open new editors with an empty file, not the welcome screen or anything
+    // like that
     "workbench.startupEditor": "newUntitledFile",
 
     "[git-commit]": {
         "editor.rulers": [80],
         "editor.wordWrap": "on"
-    }
+    },
+    "workbench.iconTheme": "material-icon-theme",
+    "editor.matchBrackets": false
 }
