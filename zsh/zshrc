@@ -1,12 +1,12 @@
-setopt promptsubst
+setopt localoptions promptsubst
 
 export EDITOR='code -w'
 export GOPATH="$HOME/go"
 export JAVA_HOME="/Applications/Android Studio.app/Contents/jre/jdk/Contents/Home"
-export NDK_HOME="$HOME/Library/Android/sdk/ndk-bundle"
 export GEM_HOME="$HOME/.gem"
 
-export PATH="/usr/local/bin:/usr/bin:/usr/sbin:/sbin:/usr/local/go/bin:$HOME/.dotfiles/bin:$PATH"
+export PATH="/usr/local/bin:/usr/bin:/usr/sbin:/sbin:/usr/local/go/bin:$PATH"
+export PATH="$HOME/.dotfiles/bin:$PATH"
 export PATH="$PATH:$HOME/.gem/bin"
 export PATH="$PATH:$GOPATH/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
@@ -87,23 +87,47 @@ if which swiftenv > /dev/null; then eval "$(swiftenv init -)"; fi
 
 eval "$(direnv hook zsh)"
 
-# added by travis gem
-[ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
-
 # Load NVM
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
-# Load gcloud things
-source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
-source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
 
 # Ruby
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh
 
+# Load gcloud things
+source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
+source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
+
 # Set up the actual prompt
 precmd() {
+  setopt extendedglob
+
+  local current_pwd="${PWD/#$HOME/~}"
+  local ret_directory
+
+  # Split path components
+  local pcs=("${(@s:/:)current_pwd}")
+  # Length of array of path components
+  local pcs_len="${#pcs[@]}"
+
+  # Number of full path components you want at the end of the path
+  local full_pc_len=2
+
+  if [[ "${current_pwd}" == (#m)[/~] ]]; then
+    ret_directory="$MATCH"
+    unset MATCH
+  elif [ ${#pcs[@]} -ge $((full_pc_len + 1)) ]; then
+    local path_full_comps=$((pcs_len - full_pc_len))
+    local short_path_comps="${(@j:/:M)${pcs[@]:0:$((path_full_comps))}##.#?}"
+    local full_path_comps="/${${(@j:/:)${pcs[@]:$((pcs_len - full_pc_len)):$((full_pc_len))}}//\%/%%}"
+    ret_directory="${short_path_comps}${full_path_comps}"
+  else
+    ret_directory="${current_pwd}"
+  fi
+
+  unset current_pwd
+
   vcs_info
-  PROMPT="%2~$(prompt_git) %F{magenta}❯ %f"
+  PROMPT="${ret_directory}$(prompt_git) %F{magenta}❯ %f"
 }
