@@ -5,6 +5,7 @@
 [alias]
   s = status
   st = status
+  p = push
   br = branch
   co = checkout
   di = diff

@@ -1,5 +1,6 @@
 ## Git - see gitconfig for description of functionality
 alias g='git s'
+alias gp='git p'
 alias gc='git c'
 alias gl='git l'
 alias ga='git add -p'
