@@ -55,6 +55,8 @@
   b = checkout -
   # Reset the previous commit but keep changes in working directory
   undo = reset HEAD~1 --mixed
+  # Add everything and then commit with a "WIP" message
+  wip = !git add -A && git commit -m 'WIP'
 [apply]
   # Detect whitespace errors when applying a patch
   whitespace = fix

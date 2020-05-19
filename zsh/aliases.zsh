@@ -21,6 +21,7 @@ alias gf='git f'
 alias glpr='git lpr'
 alias glprc='git lpr | pbcopy'
 alias gun='git undo'
+alias gwip='git wip'
 alias gcon='git contributors'
 alias gtt='gittower .'
 
