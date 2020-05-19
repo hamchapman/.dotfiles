@@ -3,22 +3,58 @@
   email = hamchapman@gmail.com
   signingkey = D2EB1D835E12AE08913B7B6E2B42C3D6AD7B94DA
 [alias]
+  s = status
   st = status
   br = branch
   co = checkout
   di = diff
-  amend = commit --amend --verbose --cleanup=scissors
+  su = submodule update
+  sui = submodule update -i
   fa = fetch --all
+  # Amend previous commit with diff shown and with scissors cleanup so that code
+  # blocks, for example, can easily be included in the commit message
+  amend = commit --amend --verbose --cleanup=scissors
+  # Log in short format, with colour
   l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  # Prune local branches that have been merged
   prune-local = !git branch --merged | tr -d '*' | grep -v dev | xargs -n1 git branch -d
   # List contributors with number of commits
   contributors = shortlog --summary --numbered
+  # View the current working tree status using the short format
+  ss = status -s
+  # Show all branches, sorted by most recent commit activity
+  rba = !git branch --sort=\"-committerdate\" --format=\"%(color:green)%(committerdate:relative)%(color:reset) %(refname:short)\"
+  # Show 10 most recently committed-to branches
+  rb = !git rba | head -n 10
   # Switch to a branch, creating it if necessary
   go = "!f() { git checkout \"$1\" 2> /dev/null || git checkout -b \"$1\" 2> /dev/null; }; f"
-  # View the current working tree status using the short format
-  s = status -s
-  rba = !git branch --sort=\"-committerdate\" --format=\"%(color:green)%(committerdate:relative)%(color:reset) %(refname:short)\"
-  rb = !git rba | head -n 10
+  # Show the current branch's commits in a log format suitable for adding to a
+  # pull request
+  lpr = "!f() { git log --reverse --format='%B%n---%n' \"${1:-develop}\"..HEAD | tail -r | sed '1,3d' | tail -r; }; f"
+  # Delete the specified tag locally and from origin, or the specified remote
+  td = "!f() { git tag -d \"$1\" && git push \"${2:-origin}\" :refs/tags/\"$1\"; }; f"
+  # Push the current branch and set its upstream to origin, or the specified
+  # remote
+  pu = "!f() { git push -u \"${1:-origin}\" HEAD; }; f"
+  # Commit with the provided message
+  cm = "!f() { git commit -m \"$1\"; }; f"
+  # Fetch from origin, or the specified remote
+  f = "!f() { git fetch \"${1:-origin}\"; }; f"
+  # Commit with diff shown in editor, and with scissors cleanup so that code
+  # blocks, for example, can easily be included in the commit message
+  c = commit --verbose --cleanup=scissors
+  # Show the diff only for staged files
+  ds = diff --staged
+  # Show remote info in verbose format
+  rv = remote -v
+  # Amend the previous commit without editing the commit message
+  ca = commit --amend --verbose --no-edit --cleanup=scissors
+  # Amend the previous commit and edit the commit message
+  caa = commit --amend --verbose --cleanup=scissors
+  # Checkout the previous branch
+  b = checkout -
+  # Reset the previous commit but keep changes in working directory
+  undo = reset HEAD~1 --mixed
 [apply]
   # Detect whitespace errors when applying a patch
   whitespace = fix

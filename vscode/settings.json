@@ -31,11 +31,11 @@
     // rather than only leaving the most recently selected one open
     "workbench.editor.enablePreview": false,
 
-    // Set the maximum number of open editors to 10. Old, clean editors will be
+    // Set the maximum number of open editors to 8. Old, clean editors will be
     // closed once the number exceeds 10.
     "workbench.editor.limit.enabled": true,
     "workbench.editor.limit.perEditorGroup": true,
-    "workbench.editor.limit.value": 5,
+    "workbench.editor.limit.value": 8,
 
     // Theme choices
     "workbench.colorTheme": "Oceanic Next Sublime",
@@ -50,5 +50,8 @@
         "editor.wordWrap": "on"
     },
     "workbench.iconTheme": "material-icon-theme",
-    "editor.matchBrackets": false
+    "editor.matchBrackets": false,
+    "[cpp]": {
+        "editor.defaultFormatter": "xaver.clang-format"
+    }
 }

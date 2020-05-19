@@ -29,14 +29,14 @@ REPORTTIME=10 # print elapsed time when more than 10 seconds
 
 # Show right prompt with date ONLY when command is executed
 preexec () {
-  DATE=$( date +"%H:%M:%S" )
-  local len_right=$( strlen "$DATE" )
-  len_right=$(( $len_right+1 ))
+  DATE=$(date +"%H:%M:%S")
+  local len_right=$(strlen "$DATE")
+  len_right=$(($len_right + 1))
   local right_start=$(($COLUMNS - $len_right))
 
-  local len_cmd=$( strlen "$@" )
-  local len_prompt=$(strlen "$PROMPT" )
-  local len_left=$(($len_cmd+$len_prompt))
+  local len_cmd=$(strlen "$@")
+  local len_prompt=$(strlen "$PROMPT")
+  local len_left=$(($len_cmd + $len_prompt))
 
   RDATE="\033[${right_start}C ${DATE}"
 
