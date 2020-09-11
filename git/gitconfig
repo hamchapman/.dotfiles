@@ -8,10 +8,14 @@
   p = push
   br = branch
   co = checkout
+  d = diff
   di = diff
   su = submodule update
   sui = submodule update -i
   fa = fetch --all
+  ps = push
+  pl = pull
+  sh = show
   # Amend previous commit with diff shown and with scissors cleanup so that code
   # blocks, for example, can easily be included in the commit message
   amend = commit --amend --verbose --cleanup=scissors

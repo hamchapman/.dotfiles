@@ -531,8 +531,8 @@ defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
 # Other subtle changes
 #
 
-# Save screenshots to the desktop
-defaults write com.apple.screencapture location -string "$HOME/Dropbox/Screenshots"
+# Save screenshots to an iCloud Drive directory
+defaults write com.apple.screencapture location -string "$HOME/Library/Mobile Documents/com~apple~CloudDocs/Screenshots"
 
 # Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
 defaults write com.apple.screencapture type -string png

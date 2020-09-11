@@ -38,7 +38,7 @@
     "workbench.editor.limit.value": 8,
 
     // Theme choices
-    "workbench.colorTheme": "Oceanic Next Sublime",
+    "workbench.colorTheme": "Oceanic Next Sublime + Sweet Bar",
     "workbench.preferredDarkColorTheme": "Solarized Dark",
 
     // Open new editors with an empty file, not the welcome screen or anything
