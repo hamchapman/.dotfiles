@@ -10,8 +10,10 @@ export PATH="$HOME/.dotfiles/bin:$PATH"
 export PATH="$PATH:$HOME/.gem/bin"
 export PATH="$PATH:$GOPATH/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
-export PATH="$PATH:/usr/local/opt/gnu-sed/libexec/gnubin" # gnu-sed
+export PATH="$PATH:/usr/local/opt/gnu-sed/libexec/gnubin" # GNU sed
+export PATH="$PATH:/usr/local/opt/make/bin" # GNU make
 export PATH="$PATH:$HOME/Library/Android/sdk/platform-tools"
+export PATH="$PATH:$HOME/.dotnet/tools"
 
 # Load files
 for file ($HOME/.dotfiles/zsh/*.zsh) source $file

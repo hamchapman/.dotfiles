@@ -65,6 +65,7 @@
   undo = reset HEAD~1 --mixed
   # Add everything and then commit with a "WIP" message
   wip = !git add -A && git commit -m 'WIP'
+  al = !git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
 [apply]
   # Detect whitespace errors when applying a patch
   whitespace = fix
