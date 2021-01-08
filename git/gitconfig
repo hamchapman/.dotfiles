@@ -65,7 +65,10 @@
   undo = reset HEAD~1 --mixed
   # Add everything and then commit with a "WIP" message
   wip = !git add -A && git commit -m 'WIP'
+  # Show all git aliases
   al = !git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
+  # Force push with lease
+  pf = push --force-with-lease
 [apply]
   # Detect whitespace errors when applying a patch
   whitespace = fix
