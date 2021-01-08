@@ -53,5 +53,12 @@
     "editor.matchBrackets": false,
     "[cpp]": {
         "editor.defaultFormatter": "xaver.clang-format"
-    }
+    },
+    "workbench.editorAssociations": [
+        {
+            "viewType": "default",
+            "filenamePattern": "git-rebase-todo"
+        }
+    ],
+    "window.restoreWindows": "preserve"
 }
