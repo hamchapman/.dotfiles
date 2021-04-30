@@ -38,8 +38,8 @@
     "workbench.editor.limit.value": 8,
 
     // Theme choices
-    "workbench.colorTheme": "Oceanic Next Sublime + Sweet Bar",
-    "workbench.preferredDarkColorTheme": "Solarized Dark",
+    "workbench.colorTheme": "Default Light+",
+    "workbench.preferredDarkColorTheme": "Oceanic Next Sublime + Sweet Bar",
 
     // Open new editors with an empty file, not the welcome screen or anything
     // like that
@@ -50,7 +50,7 @@
         "editor.wordWrap": "on"
     },
     "workbench.iconTheme": "material-icon-theme",
-    "editor.matchBrackets": false,
+    "editor.matchBrackets": "near",
     "[cpp]": {
         "editor.defaultFormatter": "xaver.clang-format"
     },
@@ -60,5 +60,6 @@
             "filenamePattern": "git-rebase-todo"
         }
     ],
-    "window.restoreWindows": "preserve"
+    "window.restoreWindows": "preserve",
+    "window.autoDetectColorScheme": true
 }
