@@ -19,13 +19,15 @@
 
     // Glob patterns for excluding folders and files
     "files.exclude": {
-        "**/.DS_Store": true
+        "**/.DS_Store": true,
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
     },
 
     // Don't hide ignored files from search
     "search.useIgnoreFiles": false,
-
-    "window.zoomLevel": 0,
 
     // Searching for multiple files and opening them will leave all files open
     // rather than only leaving the most recently selected one open
@@ -50,16 +52,13 @@
         "editor.wordWrap": "on"
     },
     "workbench.iconTheme": "material-icon-theme",
-    "editor.matchBrackets": "near",
+    "editor.matchBrackets": false,
     "[cpp]": {
         "editor.defaultFormatter": "xaver.clang-format"
     },
-    "workbench.editorAssociations": [
-        {
-            "viewType": "default",
-            "filenamePattern": "git-rebase-todo"
-        }
-    ],
+    "workbench.editorAssociations": {
+        "git-rebase-todo": "default"
+    },
     "window.restoreWindows": "preserve",
     "window.autoDetectColorScheme": true
 }
