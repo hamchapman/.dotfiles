@@ -85,8 +85,6 @@
   default = simple
 [credential]
   helper = store
-[url "git@github.com:"]
-  insteadOf = https://github.com/
 [color]
   ui = always
 [color "diff-highlight"]
@@ -111,3 +109,5 @@
   program = /usr/local/bin/gpg
 [rebase]
 	autosquash = true
+[merge]
+	renameLimit = 9999
