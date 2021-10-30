@@ -2,8 +2,8 @@ if [ -z "$HISTFILE" ]; then
   HISTFILE=$HOME/.zsh_history
 fi
 
-HISTSIZE=20000
-SAVEHIST=20000
+HISTSIZE=1000000000
+SAVEHIST=1000000
 
 case $HIST_STAMPS in
   "mm/dd/yyyy") alias history='fc -fl 1' ;;

@@ -1,4 +1,4 @@
- #!/usr/bin/env bash
+#!/usr/bin/env bash
 
 # ~/.osx — http://mths.be/osx
 # Watch for changes in files with either of
@@ -105,18 +105,17 @@ defaults write com.apple.dock mru-spaces -bool false
 if command -v dockutil; then
   dockutil --remove all
 
-  dockutil --add "/Applications/Messages.app"
+  dockutil --add "/System/Applications/Messages.app"
   dockutil --add "/Applications/Safari.app"
-  dockutil --add "/Applications/Mail.app"
-  dockutil --add "/Applications/Notes.app"
+  dockutil --add "/System/Applications/Mail.app"
   dockutil --add "/Applications/Things3.app"
   dockutil --add "/Applications/Visual Studio Code.app"
   dockutil --add "/Applications/Xcode.app"
   dockutil --add "/Applications/Android Studio.app"
-  dockutil --add "/Applications/Utilities/Terminal.app"
+  dockutil --add "/System/Applications/Utilities/Terminal.app"
   dockutil --add "/Applications/Slack.app"
   dockutil --add "/Applications/WhatsApp.app"
-  dockutil --add "/Applications/iTunes.app"
+  dockutil --add "/System/Applications/Music.app"
   dockutil --add "/Applications/Tweetbot.app"
 else
   echo "dockutil not installed, re-run after installing"
@@ -325,6 +324,13 @@ defaults write NSGlobalDomain AppleICUTimeFormatStrings -dict \
 #
 
 defaults write com.apple.menuextra.battery ShowPercent -bool true
+
+#
+# Spotlight
+#
+
+# Ditto-specific
+sudo defaults write /System/Volumes/Data/.Spotlight-V100/VolumeConfiguration.plist Exclusions -array-add "$HOME/ditto"
 
 
 #

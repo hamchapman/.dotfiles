@@ -57,6 +57,7 @@ alias o='open .'
 ## Misc
 alias reload='source ~/.zshrc'
 alias be='bundle exec'
+alias ru="chruby ruby-${DEFAULT_STABLE_RUBY}"
 alias prune='brew cleanup && gem cleanup && docker system prune && xcrun simctl delete unavailable'
 alias tdesk='if (defaults read com.apple.finder CreateDesktop | grep -q true); then defaults write com.apple.finder CreateDesktop false; else defaults write com.apple.finder CreateDesktop true; fi
 killall Finder /System/Library/CoreServices/Finder.app'

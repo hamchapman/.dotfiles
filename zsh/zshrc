@@ -5,20 +5,12 @@ export GOPATH="$HOME/go"
 export JAVA_HOME="/Applications/Android Studio.app/Contents/jre/Contents/Home"
 export GEM_HOME="$HOME/.gem"
 export ANDROID_SDK_ROOT="$HOME/Library/Android/sdk"
-
-export PATH="/usr/local/bin:/usr/bin:/usr/sbin:/sbin:/usr/local/go/bin:$PATH"
-export PATH="$HOME/.dotfiles/bin:$PATH"
-export PATH="$PATH:$HOME/.gem/bin"
-export PATH="$PATH:$GOPATH/bin"
-export PATH="$PATH:$HOME/.cargo/bin"
-export PATH="$PATH:/usr/local/opt/gnu-sed/libexec/gnubin" # GNU sed
-export PATH="$PATH:/usr/local/opt/make/bin" # GNU make
-export PATH="$PATH:$HOME/Library/Android/sdk/platform-tools"
-export PATH="$PATH:$HOME/.dotnet/tools"
-export PATH="$PATH:${KREW_ROOT:-$HOME/.krew}/bin"
+export DEFAULT_STABLE_RUBY="3.0.2"
 
 # Load files
 for file ($HOME/.dotfiles/zsh/*.zsh) source $file
+
+REPORTTIME=10 # print elapsed time when command runs for more than 10 seconds
 
 # Command timings
 strlen () {
@@ -27,9 +19,6 @@ strlen () {
   LEN=${#${(S%%)FOO//$~zero/}}
   echo $LEN
 }
-
-# Timer
-REPORTTIME=10 # print elapsed time when more than 10 seconds
 
 # Show right prompt with date ONLY when command is executed
 preexec () {
@@ -53,30 +42,6 @@ preexec () {
   fi
 }
 
-# Keep Apple Terminal.app's current working directory updated
-# based on this answer: http://superuser.com/a/315029
-# with extra fixes to handle multibyte chars and non-UTF-8 locales
-if [[ "$TERM_PROGRAM" == "Apple_Terminal" ]] && [[ -z "$INSIDE_EMACS" ]]; then
-  # Emits the control sequence to notify Terminal.app of the cwd
-  # Identifies the directory using a file: URI scheme, including
-  # the host name to disambiguate local vs. remote paths.
-  function update_terminalapp_cwd() {
-    emulate -L zsh
-
-    # Percent-encode the pathname.
-    local URL_PATH="$(omz_urlencode -P $PWD)"
-    [[ $? != 0 ]] && return 1
-
-    # Undocumented Terminal.app-specific control sequence
-    printf '\e]7;%s\a' "file://$HOST$URL_PATH"
-  }
-
-  # Use a precmd hook instead of a chpwd hook to avoid contaminating output
-  precmd_functions+=(update_terminalapp_cwd)
-  # Run once to get initial cwd set
-  update_terminalapp_cwd
-fi
-
 # make GPG stuff work
 
 GPG_AGENT_SOCKET="$(gpgconf --list-dirs agent-ssh-socket)"
@@ -89,21 +54,15 @@ fi
 
 ulimit -n 65536
 
-if which swiftenv > /dev/null; then eval "$(swiftenv init -)"; fi
-
 eval "$(direnv hook zsh)"
 
 # Load NVM
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"
 
 # Ruby
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh
-
-# Load gcloud things
-source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
-source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
 
 # Set up the actual prompt
 precmd() {
