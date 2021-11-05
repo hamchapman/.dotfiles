@@ -20,6 +20,22 @@
 * Clone these dotfiles: `git clone git@github.com:hamchapman/.dotfiles.git`
 * Run `macos.sh`
 
+**Manual steps:**
+
+* Set Finder prefs
+* Set Safari prefs (e.g. enable developer menu, load previous windows on start,
+  etc)
+* Set touchbar prefs
+* Set sync folder in Alfred prefs
+* Set apps to launch at login:
+    * Tailscale
+    * Fantastical
+
+## TODO
+
+* Maybe swap to xcinfo from xcversion
+* Add Time machine to menubar
+
 ## Credits
 
 Shamelessly hacked together from various parts of other people's dotfiles,

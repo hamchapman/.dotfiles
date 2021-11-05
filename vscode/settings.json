@@ -60,5 +60,6 @@
         "git-rebase-todo": "default"
     },
     "window.restoreWindows": "preserve",
-    "window.autoDetectColorScheme": true
+    "window.autoDetectColorScheme": true,
+    "workbench.editor.untitled.hint": "hidden"
 }
