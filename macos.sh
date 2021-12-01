@@ -46,15 +46,18 @@ ln -sf $HOME/.dotfiles/sublime/Preferences.sublime-settings $HOME/Library/Applic
 open $HOME/.dotfiles/terminal_themes/Chalk.terminal
 
 # Install some default software
-brew tap homebrew/cask-versions
-brew bundle --file="$HOME/.dotfiles/Brewfile"
-brew bundle --file="$HOME/.dotfiles/Brewfile.cask"
+/usr/local/bin/brew tap homebrew/cask-versions
+/usr/local/bin/brew bundle --file="$HOME/.dotfiles/Brewfile"
+/usr/local/bin/brew bundle --file="$HOME/.dotfiles/Brewfile.cask"
 
 # Remove brew cruft
-brew cleanup
+/usr/local/bin/brew cleanup
 
 # Ensure VSCode settings are in the right place
 ln -sf $HOME/.dotfiles/vscode/settings.json $HOME/Library/Application\ Support/Code/User/settings.json
+
+# Reload
+source "$HOME/.zshrc"
 
 # Ensure that Ruby gems directory exists
 mkdir -p "$HOME/.gem"
@@ -100,7 +103,7 @@ echo "Installing Ruby ${ruby_ver}"
 ruby-install ruby $ruby_ver
 
 # 3. Reload
-soure "$HOME/.zshrc"
+source "$HOME/.zshrc"
 
 # 4. Activate to installed stable Ruby version
 chruby ruby-$ruby_ver
