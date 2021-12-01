@@ -120,6 +120,9 @@ latest_version=`xcversion list | grep -Ei '^[0-9\.]+$' | tail -1`
 echo "Installing Xcode ${latest_version}"
 xcversion install "${latest_version}"
 
+# Install sourcekitten now that Xcode is installed
+/opt/homebrew/bin/brew install sourcekitten
+
 # Create NVM's working directory
 mkdir -p "$HOME/.nvm"
 
