@@ -23,21 +23,6 @@ open -a "App Store"
 
 echo "Press y once you've signed into the App Store"
 
-if asksure; then
-	mas account
-
-	retVal=$?
-	if [ $retVal -ne 0 ]; then
-	    echo "Failed to sign into App Store"
-	    exit $retVal
-	else
-		echo "Signed into App Store"
-	fi
-else
-	echo "Failed to sign into App Store"
-	exit 1
-fi
-
 # Install homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
@@ -75,6 +60,21 @@ brew cleanup
 mkdir -p "$HOME/.gem"
 
 # Install App Store apps
+if asksure; then
+	mas account
+
+	retVal=$?
+	if [ $retVal -ne 0 ]; then
+	    echo "Failed to sign into App Store"
+	    exit $retVal
+	else
+		echo "Signed into App Store"
+	fi
+else
+	echo "Failed to sign into App Store"
+	exit 1
+fi
+
 mas install 409183694 # Keynote
 mas install 409201541 # Pages
 mas install 409203825 # Numbers
