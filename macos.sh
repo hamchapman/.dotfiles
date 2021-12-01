@@ -42,9 +42,6 @@ ln -sf $HOME/.dotfiles/sublime/OceanicNext.tmTheme $HOME/Library/Application\ Su
 # Link Sublime Text preferences to the correct place
 ln -sf $HOME/.dotfiles/sublime/Preferences.sublime-settings $HOME/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Preferences.sublime-settings
 
-# Link VS Code preferences to the correct place
-ln -sf $HOME/.dotfiles/vscode/settings.json $HOME/Library/Application\ Support/Code/User/settings.json
-
 # Add Terminal.app theme
 open $HOME/.dotfiles/terminal_themes/Chalk.terminal
 
@@ -55,6 +52,9 @@ brew bundle --file="$HOME/.dotfiles/Brewfile.cask"
 
 # Remove brew cruft
 brew cleanup
+
+# Ensure VSCode settings are in the right place
+ln -sf $HOME/.dotfiles/vscode/settings.json $HOME/Library/Application\ Support/Code/User/settings.json
 
 # Ensure that Ruby gems directory exists
 mkdir -p "$HOME/.gem"
