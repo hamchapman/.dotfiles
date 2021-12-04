@@ -5,7 +5,7 @@ export GOPATH="$HOME/go"
 export JAVA_HOME="/Applications/Android Studio.app/Contents/jre/Contents/Home"
 export GEM_HOME="$HOME/.gem"
 export ANDROID_SDK_ROOT="$HOME/Library/Android/sdk"
-export DEFAULT_STABLE_RUBY="3.0.2"
+export DEFAULT_STABLE_RUBY="3.0.3"
 
 # Load files
 for file ($HOME/.dotfiles/zsh/*.zsh) source $file
@@ -46,7 +46,7 @@ preexec () {
 
 GPG_AGENT_SOCKET="$(gpgconf --list-dirs agent-ssh-socket)"
 if [ ! -S $GPG_AGENT_SOCKET ]; then
-  gpg-agent --daemon --pinentry-program /usr/local/bin/pinentry-mac >/dev/null 2>&1
+  gpg-agent --daemon --pinentry-program "${BREW_PREFIX}/bin/pinentry-mac" >/dev/null 2>&1
   export GPG_TTY=$(tty)
 fi
 
@@ -58,11 +58,11 @@ eval "$(direnv hook zsh)"
 
 # Load NVM
 export NVM_DIR="$HOME/.nvm"
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"
+[ -s "${BREW_PREFIX}/opt/nvm/nvm.sh" ] && . "${BREW_PREFIX}/opt/nvm/nvm.sh"
 
 # Ruby
-source /usr/local/opt/chruby/share/chruby/chruby.sh
-source /usr/local/opt/chruby/share/chruby/auto.sh
+source "${BREW_PREFIX}/opt/chruby/share/chruby/chruby.sh"
+source "${BREW_PREFIX}/opt/chruby/share/chruby/auto.sh"
 
 # Set up the actual prompt
 precmd() {

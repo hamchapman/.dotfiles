@@ -5,7 +5,9 @@
 #  sudo fs_usage | grep plist
 #  sudo opensnoop | grep plist
 
-killall System\ Preferences
+killall "System Preferences"
+
+echo "Please provide password for changes that require sudo"
 
 # Ask for the administrator password upfront
 sudo -v
@@ -145,7 +147,7 @@ defaults write com.apple.Terminal "Default Window Settings" -string "Chalk"
 defaults write com.apple.Terminal "Startup Window Settings" -string "Chalk"
 
 # Set login command to make it not noisy on open
-defaults write com.apple.Terminal "Shell" -string "login -fpql ham /usr/local/bin/zsh"
+defaults write com.apple.Terminal "Shell" -string "login -fpql ham ${BREW_PREFIX}/bin/zsh"
 
 # Close Terminal without warnings
 /usr/libexec/PlistBuddy "$HOME/Library/Preferences/com.apple.Terminal.plist" \
@@ -588,7 +590,7 @@ defaults write org.macosforge.xquartz.X11 sync_primary_on_select -bool false
 defaults write org.macosforge.xquartz.X11 app_to_run -string /opt/X11/bin/xterm
 
 # Set default shell
-defaults write org.macosforge.xquartz.X11 login_shell -string /usr/local/bin/zsh
+defaults write org.macosforge.xquartz.X11 login_shell -string "${BREW_PREFIX}/bin/zsh"
 
 
 #
