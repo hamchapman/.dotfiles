@@ -1,4 +1,5 @@
 .DS_Store
+git/gitconfig
 zsh/secret.zsh
 zsh/brew.zsh
 *.lock.json

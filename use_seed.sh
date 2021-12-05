@@ -18,7 +18,7 @@ main() {
   cp "${unzipped_dir}/.zsh_history" "$HOME"
   cp -R "${unzipped_dir}/.gnupg" "$HOME"
   cp "${unzipped_dir}/.zsh_history" "$HOME"
-  cp "secret.zsh" "${HOME}/.dotfiles/zsh"
+  cp -R "${unzipped_dir}/.dotfiles" "$HOME"
 
   if [ -d "${unzipped_dir}/Backups" ]; then
     echo "VSCode backups found in package from old machine. Grab them if you want them!"

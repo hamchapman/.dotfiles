@@ -4,7 +4,8 @@
 set -eo pipefail
 
 asksure() {
-	echo -n "Are you sure (Y/N)? "
+  local msg="${1}"
+	echo -n "${msg} (y/n) "
 	while read -r -n 1 -s answer; do
 	  if [[ $answer = [YyNn] ]]; then
 	    [[ $answer = [Yy] ]] && retval=0
@@ -12,20 +13,22 @@ asksure() {
 	    break
 	  fi
 	done
-
 	echo # just a final linefeed, optics...
-
 	return $retval
 }
+
+echo "Please provide password for changes that require sudo"
+
+# Ask for the administrator password upfront
+sudo -v
 
 echo "Sign in to App Store"
 open -a "App Store"
 
-echo "Press y once you've signed into the App Store"
-# TODO: Call asksure with message above
+asksure "Press y once you've signed into the App Store"
 
 # Install homebrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+echo | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 BREW_BIN=""
 
@@ -45,6 +48,10 @@ SECRETS_FILE_PATH="$HOME/.dotfiles/zsh/secret.zsh"
 if [ ! -f "${SECRETS_FILE_PATH}" ]; then
   touch "${SECRETS_FILE_PATH}"
 fi
+
+# Substitute proper `BREW_PREFIX` into gitconfig template
+cp $HOME/.dotfiles/git/gitconfig.template $HOME/.dotfiles/git/gitconfig
+sed -i '' -e "s|___BREW_PREFIX___|${BREW_PREFIX}|" $HOME/.dotfiles/git/gitconfig
 
 # Do some useful linking
 ln -sf $HOME/.dotfiles/zsh/zshrc $HOME/.zshrc
@@ -77,7 +84,7 @@ echo "export BREW_PREFIX=\"${BREW_PREFIX}\"" > zsh/brew.zsh
 open "/Applications/Visual Studio Code.app"
 
 # Ensure VSCode settings are in the right place
-ln -sf $HOME/.dotfiles/vscode/settings.json $HOME/Library/Application\ Support/Code/User/settings.json
+ln -sf "$HOME/.dotfiles/vscode/settings.json" "$HOME/Library/Application Support/Code/User/settings.json"
 
 # Ensure that Ruby gems directory exists
 mkdir -p "$HOME/.gem"
@@ -146,4 +153,20 @@ nvm install --lts
 # Install Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
+# Open Backblaze because it's easy to forget to set this up otherwise
 open "${BREW_PREFIX}/Caskroom/backblaze"
+
+# Ensure .dotfiles repo has the correct URL set (ssh, not https)
+ensure_correct_dotfiles_remote_url() (
+  local desired_repo_url="git@github.com:hamchapman/.dotfiles.git"
+  local existing_url=''
+  existing_url="$(git config "remote.origin.url")" || true
+
+  if [[ "${desired_repo_url}" == "${existing_url}" ]]; then
+    # no-op - we are in a good state
+    true
+  else
+    git remote set-url origin "${desired_repo_url}"
+  fi
+)
+ensure_correct_dotfiles_remote_url

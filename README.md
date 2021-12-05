@@ -17,7 +17,9 @@
 
 **Always do the following:**
 
-* Clone these dotfiles: `git clone git@github.com:hamchapman/.dotfiles.git`
+* Clone these dotfiles:
+  * If you've already got ssh setup (this is true if you used a seed): `git clone git@github.com:hamchapman/.dotfiles.git`
+  * Otherwise: `git clone https://github.com/hamchapman/.dotfiles.git`
 * Run `macos.sh`
 
 **Manual steps:**

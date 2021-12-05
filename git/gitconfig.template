@@ -106,7 +106,7 @@
 [credential]
   helper = osxkeychain
 [gpg]
-  program = /opt/homebrew/bin/gpg
+  program = ___BREW_PREFIX___/bin/gpg
 [rebase]
 	autosquash = true
 [merge]
