@@ -1,35 +1,13 @@
 ## Git - see gitconfig for description of functionality
+
+git_aliases=("${(@f)$(git al)}")
+
+for al in ${git_aliases[@]}; do
+  just_alias=$(echo $al | cut -f1 -d' ')
+  alias "g$just_alias"="git $just_alias"
+done
+
 alias g='git s'
-alias gp='git p'
-alias gc='git c'
-alias gl='git l'
-alias ga='git add -p'
-alias gs='git ss'
-alias gb='git b'
-alias gf='git f'
-alias gd='git d'
-alias grb='git rb'
-alias grba='git rba'
-alias ggo='git go'
-alias gds='git ds'
-alias grv='git rv'
-alias gsh='git sh'
-alias gca='git ca'
-alias gcaa='git caa'
-alias gsu='git su'
-alias gsui='git sui'
-alias gtd='git td'
-alias gpu='git pu'
-alias gcm='git cm'
-alias gps='git ps'
-alias gpl='git pl'
-alias gpf='git pf'
-alias gal='git al'
-alias glpr='git lpr'
-alias glprc='git lprc'
-alias gun='git undo'
-alias gwip='git wip'
-alias gcon='git contributors'
 alias gtt='gittower .'
 
 ## cd shortcuts

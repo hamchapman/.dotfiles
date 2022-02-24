@@ -1,5 +1,6 @@
 .DS_Store
 git/gitconfig
+gnupg/gpg-agent.conf
 zsh/secret.zsh
 zsh/brew.zsh
 *.lock.json

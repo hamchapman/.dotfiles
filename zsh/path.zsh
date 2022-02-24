@@ -1,5 +1,6 @@
 export PATH="/usr/local/bin:/usr/bin:/usr/sbin:/sbin:/usr/local/go/bin:$PATH"
 export PATH="${BREW_PREFIX}/bin:$PATH"
+export PATH="${BREW_PREFIX}/sbin:$PATH"
 export PATH="$HOME/.dotfiles/bin:$PATH"
 export PATH="$PATH:$HOME/.gem/bin"
 export PATH="$PATH:$GOPATH/bin"

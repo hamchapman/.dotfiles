@@ -53,10 +53,15 @@ fi
 cp $HOME/.dotfiles/git/gitconfig.template $HOME/.dotfiles/git/gitconfig
 sed -i '' -e "s|___BREW_PREFIX___|${BREW_PREFIX}|" $HOME/.dotfiles/git/gitconfig
 
+# Substitute proper `BREW_PREFIX` into gpg-agent.conf template
+cp $HOME/.dotfiles/gnupg/gpg-agent.conf.template $HOME/.dotfiles/gnupg/gpg-agent.conf
+sed -i '' -e "s|___BREW_PREFIX___|${BREW_PREFIX}|" $HOME/.dotfiles/gnupg/gpg-agent.conf
+
 # Do some useful linking
 ln -sf $HOME/.dotfiles/zsh/zshrc $HOME/.zshrc
 ln -sf $HOME/.dotfiles/git/gitconfig $HOME/.gitconfig
 ln -sf $HOME/.dotfiles/git/gitignore_global $HOME/.gitignore_global
+ln -sf $HOME/.dotfiles/gnupg/gpg-agent.conf $HOME/.gnupg/gpg-agent.conf
 ln -sf $HOME/.dotfiles/.gemrc $HOME/.gemrc
 
 # Link Sublime Text theme to the correct place
@@ -152,9 +157,6 @@ nvm install --lts
 
 # Install Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-
-# Open Backblaze because it's easy to forget to set this up otherwise
-open "${BREW_PREFIX}/Caskroom/backblaze"
 
 # Ensure .dotfiles repo has the correct URL set (ssh, not https)
 ensure_correct_dotfiles_remote_url() (
