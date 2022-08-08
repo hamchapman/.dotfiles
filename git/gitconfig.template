@@ -35,7 +35,7 @@
   go = "!f() { git checkout \"$1\" 2> /dev/null || git checkout -b \"$1\" 2> /dev/null; }; f"
   # Show the current branch's commits in a log format suitable for adding to a
   # pull request
-  lpr = "!f() { git log --reverse --format='%B%n---%n' \"${1:-develop}\"..HEAD | tail -r | sed '1,3d' | tail -r; }; f"
+  lpr = "!f() { git log --reverse --format='%B%n---%n' \"${1:-main}\"..HEAD | tail -r | sed '1,3d' | tail -r; }; f"
   # Copies the current branch's commits in a log format suitable for adding to a
   # pull request to the clipboard
   lprc = "!f() { git lpr \"${1}\" | pbcopy; }; f"
@@ -69,6 +69,13 @@
   al = !git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
   # Force push with lease
   pf = push --force-with-lease
+  # Enter interactive rebase based on the provided value
+  rbi = "!f() { git rebase -i \"$1\"; }; f"
+  # Perform some pruning and cleanup operations, which sometimes help fix a bad
+  # git state
+  prune = "!f() { git remote prune origin; git gc --prune=now; }; f"
+  # Safely deletes a ref
+  dref = "!f() { git update-ref -d \"$1\"; }; f"
 [apply]
   # Detect whitespace errors when applying a patch
   whitespace = fix

@@ -133,18 +133,13 @@ install_stable_ruby() (
 )
 install_stable_ruby
 
-# Install xcversion to enable nice Xcode installs
-gem install xcode-install
-
 # Install latest Xcode
 
 # Call this once on its own to trigger any required login
-xcversion list
+xcodes list
 
-# Proceed with install latest Xcode
-latest_xcode_version=`xcversion list | grep -Ei '^[0-9\.]+$' | tail -1`
-echo "Installing Xcode ${latest_xcode_version}"
-xcversion install "${latest_xcode_version}"
+# Install latest non-prerelease version of Xcode
+xcodes install --latest
 
 # Install sourcekitten now that Xcode is installed
 "${BREW_BIN}" install sourcekitten

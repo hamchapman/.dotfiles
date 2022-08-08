@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+
+# If zsh's history isn't working properly then try this
+
+mv "$HOME/.zsh_history" "$HOME/.zsh_history_bad"
+strings "$HOME/.zsh_history_bad" > "$HOME/.zsh_history"
+rm "$HOME/.zsh_history_bad"
+fc -R "$HOME/.zsh_history"

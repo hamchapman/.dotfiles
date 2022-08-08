@@ -35,7 +35,6 @@
 
 ## TODO
 
-* Maybe swap to xcinfo from xcversion
 * Add Time machine to menubar
 
 ## Credits
