@@ -2,10 +2,10 @@ setopt localoptions promptsubst
 
 export EDITOR='code -w'
 export GOPATH="$HOME/go"
-export JAVA_HOME="/Applications/Android Studio.app/Contents/jre/Contents/Home"
 export GEM_HOME="$HOME/.gem"
-export ANDROID_SDK_ROOT="$HOME/Library/Android/sdk"
 export DEFAULT_STABLE_RUBY="3.0.3"
+export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+export ANDROID_HOME="$HOME/Library/Android/sdk"
 
 # Load files
 for file ($HOME/.dotfiles/zsh/*.zsh) source $file

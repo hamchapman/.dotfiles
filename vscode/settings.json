@@ -68,8 +68,11 @@
     "editor.inlineSuggest.enabled": true,
     "github.copilot.enable": {
         "*": true,
-        "yaml": false,
         "plaintext": true,
-        "markdown": false
+        "markdown": true,
+        "scminput": false,
+        "yaml": true,
+        "rust": true
     },
+    "terminal.integrated.scrollback": 10000,
 }

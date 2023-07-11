@@ -118,3 +118,5 @@
 	autosquash = true
 [merge]
 	renameLimit = 9999
+[rerere]
+	enabled = true
