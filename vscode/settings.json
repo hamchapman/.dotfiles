@@ -40,7 +40,7 @@
     "workbench.editor.limit.value": 12,
 
     // Theme choices
-    "workbench.colorTheme": "Default Light+",
+    "workbench.colorTheme": "Default Light Modern",
     "workbench.preferredDarkColorTheme": "Oceanic Next Sublime + Sweet Bar",
 
     // Open new editors with an empty file, not the welcome screen or anything
@@ -72,7 +72,8 @@
         "markdown": true,
         "scminput": false,
         "yaml": true,
-        "rust": true
+        "rust": true,
+        "javascript": true
     },
     "terminal.integrated.scrollback": 10000,
 }

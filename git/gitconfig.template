@@ -76,6 +76,8 @@
   prune = "!f() { git remote prune origin; git gc --prune=now; }; f"
   # Safely deletes a ref
   dref = "!f() { git update-ref -d \"$1\"; }; f"
+  # Stash changes with a nice message
+  ss = "!f() { git stash save \"$1\"; }; f"
 [apply]
   # Detect whitespace errors when applying a patch
   whitespace = fix

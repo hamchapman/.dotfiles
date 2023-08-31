@@ -8,6 +8,7 @@ export PATH="$PATH:$GOPATH/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:${BREW_PREFIX}/gnu-sed/libexec/gnubin" # GNU sed
 export PATH="$PATH:${BREW_PREFIX}/make/bin" # GNU make
+export PATH="$PATH:$HOME/Library/Android/sdk/emulator"
 export PATH="$PATH:$HOME/Library/Android/sdk/platform-tools"
 export PATH="$PATH:$HOME/.dotnet/tools"
 export PATH="$PATH:${KREW_ROOT:-$HOME/.krew}/bin"
