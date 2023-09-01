@@ -3,8 +3,10 @@
   email = hamchapman@gmail.com
   signingkey = D2EB1D835E12AE08913B7B6E2B42C3D6AD7B94DA
 [alias]
+  a = add -p
   s = status
   st = status
+  ss = status -s
   p = push
   br = branch
   co = checkout
@@ -16,17 +18,12 @@
   ps = push
   pl = pull
   sh = show
-  # Amend previous commit with diff shown and with scissors cleanup so that code
-  # blocks, for example, can easily be included in the commit message
-  amend = commit --amend --verbose --cleanup=scissors
   # Log in short format, with colour
   l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
   # Prune local branches that have been merged
-  prune-local = !git branch --merged | tr -d '*' | grep -v dev | xargs -n1 git branch -d
+  prunel = !git branch --merged | tr -d '*' | grep -v dev | xargs -n1 git branch -d
   # List contributors with number of commits
-  contributors = shortlog --summary --numbered
-  # View the current working tree status using the short format
-  ss = status -s
+  con = shortlog --summary --numbered
   # Show all branches, sorted by most recent commit activity
   rba = !git branch --sort=\"-committerdate\" --format=\"%(color:green)%(committerdate:relative)%(color:reset) %(refname:short)\"
   # Show 10 most recently committed-to branches
@@ -78,6 +75,8 @@
   dref = "!f() { git update-ref -d \"$1\"; }; f"
   # Stash changes with a nice message
   ss = "!f() { git stash save \"$1\"; }; f"
+  # Pop the most recent stash
+  sp = stash pop
 [apply]
   # Detect whitespace errors when applying a patch
   whitespace = fix
@@ -122,3 +121,8 @@
 	renameLimit = 9999
 [rerere]
 	enabled = true
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
