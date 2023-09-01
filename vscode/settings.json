@@ -76,4 +76,8 @@
         "javascript": true
     },
     "terminal.integrated.scrollback": 10000,
+    "rust-analyzer.cargo.extraArgs": [
+        "--profile",
+        "rust-analyzer"
+    ],
 }
