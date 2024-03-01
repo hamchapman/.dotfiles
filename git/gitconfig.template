@@ -90,7 +90,8 @@
 [commit]
   gpgsign = true
 [push]
-  default = simple
+  default = current
+  conflictStyle = zdiff3
 [credential]
   helper = store
 [color]
@@ -121,6 +122,8 @@
 	renameLimit = 9999
 [rerere]
 	enabled = true
+[init]
+  defaultBranch = main
 [filter "lfs"]
 	required = true
 	clean = git-lfs clean -- %f
