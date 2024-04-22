@@ -8,7 +8,7 @@ main() {
   local temp_packaging_dir="$HOME/Downloads/tmp/dotfiles_package_prep/"
 
   (cd "${PROJECT_ROOT_DIR}" \
-    && git checkout master \
+    && git checkout main \
     && git pull
   )
 
