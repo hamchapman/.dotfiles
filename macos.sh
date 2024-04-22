@@ -69,8 +69,8 @@ open $HOME/.dotfiles/terminal_themes/Chalk.terminal
 
 # Install some default software
 "${BREW_BIN}" tap homebrew/cask-versions
-"${BREW_BIN}" bundle --file="$HOME/.dotfiles/Brewfile"
-"${BREW_BIN}" bundle --file="$HOME/.dotfiles/Brewfile.cask"
+"${BREW_BIN}" bundle --file="$HOME/.dotfiles/Brewfile" || true
+"${BREW_BIN}" bundle --file="$HOME/.dotfiles/Brewfile.cask" || true
 
 # Remove brew cruft
 "${BREW_BIN}" cleanup
@@ -91,7 +91,6 @@ mkdir -p "$HOME/.gem"
 "${BREW_PREFIX}/bin/mas" install 409201541 # Pages
 "${BREW_PREFIX}/bin/mas" install 409203825 # Numbers
 "${BREW_PREFIX}/bin/mas" install 904280696 # Things 3
-"${BREW_PREFIX}/bin/mas" install 1475387142 # Tailscale
 "${BREW_PREFIX}/bin/mas" install 1295203466 # Microsoft Remote Desktop
 
 # Add ssh key to keychain
@@ -104,7 +103,7 @@ $HOME/.dotfiles/defaults.sh
 install_stable_ruby() (
   # 1. Get latest stable Ruby version
   local ruby_ver
-  ruby_ver=$(ruby-install --latest | awk 'flag{ if (/jruby:/){printf "%s", buf; flag=0; buf=""} else buf = buf $0 ORS}; /ruby:/{flag=1}' | tail -1 | tr -d '[:space:]')
+  ruby_ver=$(ruby-install --update | awk 'flag{ if (/jruby:/){printf "%s", buf; flag=0; buf=""} else buf = buf $0 ORS}; /ruby:/{flag=1}' | tail -1 | tr -d '[:space:]')
 
   # 2. Install the latest stable Ruby version, if not already installed
   if [[ -d "$HOME/.rubies/ruby-${ruby_ver}" ]]; then
