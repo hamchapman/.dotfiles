@@ -27,8 +27,8 @@ defaults write com.apple.loginwindow LoginwindowLaunchesRelaunchApps -bool false
 # Disable reopen on restart
 defaults write NSGlobalDomain ApplePersistence -bool false
 
-# Dark UI
-defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
+# Switch automatically between Light and Dark UI
+defaults write NSGlobalDomain AppleInterfaceStyleSwitchesAutomatically -int 1
 
 # Enable tabbing to move focus between all controls
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 2
@@ -109,16 +109,17 @@ if command -v dockutil; then
 
   dockutil --add "/System/Applications/Messages.app"
   dockutil --add "/Applications/Safari.app"
+  dockutil --add "/Applications/Arc.app"
   dockutil --add "/System/Applications/Mail.app"
   dockutil --add "/Applications/Things3.app"
+  dockutil --add "/Applications/Reflect.app"
   dockutil --add "/Applications/Visual Studio Code.app"
   dockutil --add "/Applications/Xcode.app"
-  dockutil --add "/Applications/Android Studio.app"
   dockutil --add "/System/Applications/Utilities/Terminal.app"
   dockutil --add "/Applications/Slack.app"
+  dockutil --add "/Applications/Notion.app"
   dockutil --add "/Applications/WhatsApp.app"
   dockutil --add "/System/Applications/Music.app"
-  dockutil --add "/Applications/Tweetbot.app"
 else
   echo "dockutil not installed, re-run after installing"
 fi
@@ -215,15 +216,6 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 15
 
 
 #
-# Touchbar
-#
-
-# Press function key to show full control strip
-defaults write com.apple.touchbar.agent PresentationModeFnModes -dict \
-  appWithControlStrip -string "fullControlStrip"
-
-
-#
 # Mouse/Trackpad
 #
 
@@ -264,12 +256,6 @@ defaults -currentHost write NSGlobalDomain com.apple.trackpad.twoFingerFromRight
 # 3: Fast
 defaults write NSGlobalDomain com.apple.trackpad.scaling -float 3
 
-# Turn Bluetooth off.
-sudo defaults write /Library/Preferences/com.apple.Bluetooth ControllerPowerState -int 0
-
-# Disable El Capitan shake to magnify cursor
-defaults write NSGlobalDomain CGDisableCursorLocationMagnification -bool true
-
 # Force Click and haptic feedback
 defaults write NSGlobalDomain com.apple.trackpad.forceClick -bool true
 defaults write com.apple.AppleMultitouchTrackpad ForceSuppressed -bool false
@@ -288,7 +274,6 @@ defaults write com.apple.AppleMultitouchTrackpad SecondClickThreshold -int 0
 # Use scroll gesture with the Ctrl (^) modifier key to zoom
 defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
 defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
-# defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad HIDScrollZoomModifierMask -int 262144
 
 
 #
@@ -545,9 +530,6 @@ defaults write com.apple.screencapture location -string "$HOME/Library/Mobile Do
 # Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
 defaults write com.apple.screencapture type -string png
 
-# Don't show iOS like thumbnail
-#defaults write com.apple.screencapture show-thumbnail -string -bool false
-
 # Finally disable opening random Apple photo applications when plugging in devices
 # https://twitter.com/stroughtonsmith/status/651854070496534528
 defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
@@ -637,31 +619,8 @@ defaults write com.apple.dt.Xcode ShowBuildOperationDuration -bool true
 # http://www.openradar.me/27516128
 defaults write com.apple.dt.Xcode ExplainWhyBuildCommandsAreRun -bool true
 
-# Stop Xcode from reopening files (specifically storyboards) on launch.
-# I also have a `xcuser` shell command to wipe this state so you don't reopen
-# storyboards and dirty the diff, or just take 30 seconds to launch
-defaults write com.apple.dt.Xcode IDEDisableStateRestoration -bool true
-
-# Write detailed build system info into derived data
-# If you don't enable this but `mkdir /tmp/xcode_dependency_logs` the logs will
-# be created there instead
-#defaults write com.apple.dt.Xcode EnableBuildSystemLogging -bool true
-
 # Disable the print keyboard shortcut in Xcode. I accidentally hit this a lot
 defaults write com.apple.dt.Xcode NSUserKeyEquivalents -dict-add "Print..." "nil"
-
-# Enable extra logging for XCBuild
-#defaults write com.apple.dt.XCBuild EnableDebugActivityLogs -bool YES
-
-# Make the tab key actually be a tab key
-#defaults write com.apple.dt.Xcode DVTTextTabKeyIndentBehavior -string Never
-
-# Set the keybindings to my customizations (see $DOTFILES/xcode)
-# Stored in ~/Library/Developer/Xcode/UserData/KeyBindings
-#defaults write com.apple.dt.Xcode IDEKeyBindingCurrentPreferenceSet -string custom.idekeybindings
-
-# Set custom colorscheme
-#defaults write com.apple.dt.Xcode XCFontAndColorCurrentTheme -string panic.xccolortheme
 
 # Show indexing progress
 # https://twitter.com/dmartincy/status/1034930612543676418

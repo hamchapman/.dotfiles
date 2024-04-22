@@ -26,9 +26,6 @@
         "**/.factorypath": true
     },
 
-    // Don't hide ignored files from search
-    "search.useIgnoreFiles": false,
-
     // Searching for multiple files and opening them will leave all files open
     // rather than only leaving the most recently selected one open
     "workbench.editor.enablePreview": false,

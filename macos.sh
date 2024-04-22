@@ -64,13 +64,6 @@ ln -sf $HOME/.dotfiles/git/gitignore_global $HOME/.gitignore_global
 ln -sf $HOME/.dotfiles/gnupg/gpg-agent.conf $HOME/.gnupg/gpg-agent.conf
 ln -sf $HOME/.dotfiles/.gemrc $HOME/.gemrc
 
-# Link Sublime Text theme to the correct place
-mkdir -p "$HOME/Library/Application Support/Sublime Text 3/Packages/User/Ham"
-ln -sf $HOME/.dotfiles/sublime/OceanicNext.tmTheme $HOME/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Ham/OceanicNext.tmTheme
-
-# Link Sublime Text preferences to the correct place
-ln -sf $HOME/.dotfiles/sublime/Preferences.sublime-settings $HOME/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/Preferences.sublime-settings
-
 # Add Terminal.app theme
 open $HOME/.dotfiles/terminal_themes/Chalk.terminal
 
@@ -98,7 +91,6 @@ mkdir -p "$HOME/.gem"
 "${BREW_PREFIX}/bin/mas" install 409201541 # Pages
 "${BREW_PREFIX}/bin/mas" install 409203825 # Numbers
 "${BREW_PREFIX}/bin/mas" install 904280696 # Things 3
-"${BREW_PREFIX}/bin/mas" install 1384080005 # Tweetbot 3
 "${BREW_PREFIX}/bin/mas" install 1475387142 # Tailscale
 "${BREW_PREFIX}/bin/mas" install 1295203466 # Microsoft Remote Desktop
 

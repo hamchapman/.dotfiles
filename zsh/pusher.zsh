@@ -1,10 +1,3 @@
-alias kc='kubectl -n chatkit'
-alias kcd='kc --context deneb'
-alias kci='kc --context integration1 -n $(kc --context integration1 get ns | awk "/chatkit/ { print \$1 }")'
-alias kcm='kc --context minikube -n chatkit-acceptance'
-alias kcp='kc --context us1'
-alias kcs='kc --context us1-staging'
-
 rigfor() {
   mfaserial=$AWS_MFA_SERIAL
 

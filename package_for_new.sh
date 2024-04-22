@@ -23,7 +23,7 @@ main() {
   cp -R "$HOME/.gnupg" "${temp_packaging_dir}"
   rm -f "${temp_packaging_dir}/.gnupg/gpg-agent.conf"
   cp -R "$HOME/.dotfiles" "${temp_packaging_dir}"
-  cp -R "$HOME/Library/Application Support/Code/Backups" "${temp_packaging_dir}"
+  cp -R "$HOME/.notes.md" "${temp_packaging_dir}"
 
   (cd "${temp_packaging_dir}" \
     && zip -r "$package_filename" . \
