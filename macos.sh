@@ -92,6 +92,9 @@ mkdir -p "$HOME/.gem"
 "${BREW_PREFIX}/bin/mas" install 409203825 # Numbers
 "${BREW_PREFIX}/bin/mas" install 904280696 # Things 3
 "${BREW_PREFIX}/bin/mas" install 1295203466 # Microsoft Remote Desktop
+"${BREW_PREFIX}/bin/mas" install 1519867270 # Refined GitHub Safari Extension
+"${BREW_PREFIX}/bin/mas" install 1640236961 # Save to Reader Safari Extension
+"${BREW_PREFIX}/bin/mas" install 1590481717 # Save to Reflect Safari Extension
 
 # Add ssh key to keychain
 ssh-add --apple-use-keychain $HOME/.ssh/id_ed25519
