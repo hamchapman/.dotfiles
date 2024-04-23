@@ -34,6 +34,9 @@ export NVM_DIR="$HOME/.nvm"
 source "${BREW_PREFIX}/opt/chruby/share/chruby/chruby.sh"
 source "${BREW_PREFIX}/opt/chruby/share/chruby/auto.sh"
 
+# git-subrepo
+source "$HOME/dev/git-subrepo/.rc"
+
 # Set up the actual prompt
 precmd() {
   setopt extendedglob
