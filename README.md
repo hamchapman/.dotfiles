@@ -27,20 +27,11 @@
 * Set Finder prefs
 * Set Safari prefs (e.g. enable developer menu, load previous windows on start,
   etc)
-* Set touchbar prefs
-* Set sync folder in Alfred prefs
-* Set apps to launch at login:
-    * Tailscale
-    * Fantastical
-
-## TODO
-
-* Add Time machine to menubar
 
 ## Credits
 
 Shamelessly hacked together from various parts of other people's dotfiles,
-including:
+including but not limited to:
 
  * [Jack Franklin](https://github.com/jackfranklin/dotfiles)
  * [Mathias Bynens](https://github.com/mathiasbynens/dotfiles)

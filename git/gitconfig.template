@@ -120,6 +120,7 @@
 	autosquash = true
 [merge]
 	renameLimit = 9999
+  conflictStyle = zdiff3
 [rerere]
 	enabled = true
 [init]

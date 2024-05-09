@@ -58,7 +58,6 @@
     },
     "window.restoreWindows": "preserve",
     "window.autoDetectColorScheme": true,
-    "workbench.editor.untitled.hint": "hidden",
     "security.workspace.trust.untrustedFiles": "open",
     "kotlin.languageServer.enabled": false,
     "kotlin.debugAdapter.enabled": false,
@@ -76,5 +75,10 @@
     "rust-analyzer.cargo.extraArgs": [
         "--profile",
         "rust-analyzer"
+    ],
+    "workbench.editor.empty.hint": "hidden",
+    "rust-analyzer.procMacro.ignored": {},
+    "rust-analyzer.diagnostics.disabled": [
+        "unresolved-proc-macro"
     ],
 }
