@@ -18,13 +18,14 @@ main() {
 
   cp -R "$HOME/.ssh" "${temp_packaging_dir}"
   rm -f "${temp_packaging_dir}/.ssh/known_hosts"
-  cp -R "$HOME/.aws" "${temp_packaging_dir}"
+  cp "$HOME/.aws/credentials" "${temp_packaging_dir}/.aws/credentials"
+  cp "$HOME/.aws/config" "${temp_packaging_dir}/.aws/config"
   cp "$HOME/.zsh_history" "${temp_packaging_dir}"
   cp -R "$HOME/.gnupg" "${temp_packaging_dir}"
   rm -f "${temp_packaging_dir}/.gnupg/gpg-agent.conf"
   cp -R "$HOME/.dotfiles" "${temp_packaging_dir}"
   cp "$HOME/.notes.md" "${temp_packaging_dir}"
-  cp -R "$HOME/.cargo" "${temp_packaging_dir}"
+  cp "$HOME/.cargo/config" "${temp_packaging_dir}/.cargo/config"
 
   (cd "${temp_packaging_dir}" \
     && zip -r "$package_filename" . \
