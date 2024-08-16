@@ -81,4 +81,5 @@
     "rust-analyzer.diagnostics.disabled": [
         "unresolved-proc-macro"
     ],
+    "files.autoSave": "onFocusChange",
 }

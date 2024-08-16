@@ -19,7 +19,8 @@ setopt hist_ignore_dups # ignore duplication command history list
 setopt hist_ignore_space
 setopt hist_no_store
 setopt hist_verify
-setopt inc_append_history
+# setopt inc_append_history # should not be set if share_history is set, as per
+# https://zsh-manual.netlify.app/options
 setopt share_history # share command history data
 
 # Borrowed from oh-my-zsh (ish) for history
