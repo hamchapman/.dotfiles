@@ -68,7 +68,6 @@ ln -sf $HOME/.dotfiles/.gemrc $HOME/.gemrc
 open $HOME/.dotfiles/terminal_themes/Chalk.terminal
 
 # Install some default software
-"${BREW_BIN}" tap homebrew/cask-versions
 "${BREW_BIN}" bundle --file="$HOME/.dotfiles/Brewfile" || true
 "${BREW_BIN}" bundle --file="$HOME/.dotfiles/Brewfile.cask" || true
 
