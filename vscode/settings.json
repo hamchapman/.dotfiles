@@ -82,4 +82,5 @@
         "unresolved-proc-macro"
     ],
     "files.autoSave": "onFocusChange",
+    "githubPullRequests.pullBranch": "never",
 }
