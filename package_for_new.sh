@@ -18,6 +18,7 @@ main() {
 
   cp -R "$HOME/.ssh" "${temp_packaging_dir}"
   rm -f "${temp_packaging_dir}/.ssh/known_hosts"
+  mkdir -p "${temp_packaging_dir}/.aws"
   cp "$HOME/.aws/credentials" "${temp_packaging_dir}/.aws/credentials"
   cp "$HOME/.aws/config" "${temp_packaging_dir}/.aws/config"
   cp "$HOME/.zsh_history" "${temp_packaging_dir}"
@@ -25,6 +26,7 @@ main() {
   rm -f "${temp_packaging_dir}/.gnupg/gpg-agent.conf"
   cp -R "$HOME/.dotfiles" "${temp_packaging_dir}"
   cp "$HOME/.notes.md" "${temp_packaging_dir}"
+  mkdir -p "${temp_packaging_dir}/.cargo"
   cp "$HOME/.cargo/config" "${temp_packaging_dir}/.cargo/config"
 
   (cd "${temp_packaging_dir}" \
