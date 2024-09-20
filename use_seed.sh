@@ -17,7 +17,6 @@ main() {
   cp -R "${unzipped_dir}/.aws" "$HOME"
   cp "${unzipped_dir}/.zsh_history" "$HOME"
   cp -R "${unzipped_dir}/.gnupg" "$HOME"
-  cp "${unzipped_dir}/.zsh_history" "$HOME"
   cp -R "${unzipped_dir}/.dotfiles" "$HOME"
   cp "${unzipped_dir}/.notes.md" "$HOME"
   cp -R "${unzipped_dir}/.cargo" "$HOME"
