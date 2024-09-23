@@ -75,7 +75,7 @@ open $HOME/.dotfiles/terminal_themes/Chalk.terminal
 "${BREW_BIN}" cleanup
 
 # Store brew prefix in brew.zsh
-echo "export BREW_PREFIX=\"${BREW_PREFIX}\"" > zsh/brew.zsh
+echo "export BREW_PREFIX=\"${BREW_PREFIX}\"" > "$HOME/.dotfiles/zsh/brew.zsh"
 
 # We need to open VSCode to make the required directories be created
 open "/Applications/Visual Studio Code.app"
@@ -136,7 +136,7 @@ install_stable_ruby
 xcodes list
 
 # Install latest non-prerelease version of Xcode
-xcodes install --latest
+xcodes install --latest --experimental-unxip
 
 # Install sourcekitten now that Xcode is installed
 "${BREW_BIN}" install sourcekitten

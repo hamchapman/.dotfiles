@@ -1,4 +1,5 @@
 brew 'ansible'
+brew 'aria2'
 brew 'autoconf'
 brew 'autoconf-archive'
 brew 'awscli'
