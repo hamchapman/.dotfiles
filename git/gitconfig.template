@@ -123,6 +123,7 @@
   conflictStyle = zdiff3
 [rerere]
 	enabled = true
+  autoUpdate = true
 [init]
   defaultBranch = main
 [filter "lfs"]
