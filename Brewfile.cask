@@ -1,7 +1,6 @@
 cask '1password'
 cask '1password-cli'
 cask 'android-studio'
-cask 'arc'
 cask 'contexts'
 cask 'daisydisk'
 cask 'dash'

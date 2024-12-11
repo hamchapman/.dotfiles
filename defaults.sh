@@ -109,7 +109,6 @@ if command -v dockutil; then
 
   dockutil --add "/System/Applications/Messages.app"
   dockutil --add "/Applications/Safari.app"
-  dockutil --add "/Applications/Arc.app"
   dockutil --add "/System/Applications/Mail.app"
   dockutil --add "/Applications/Things3.app"
   dockutil --add "/Applications/Reflect.app"
@@ -117,6 +116,7 @@ if command -v dockutil; then
   dockutil --add "/Applications/Xcode.app"
   dockutil --add "/System/Applications/Utilities/Terminal.app"
   dockutil --add "/Applications/Slack.app"
+  dockutil --add "/Applications/Linear.app"
   dockutil --add "/Applications/Notion.app"
   dockutil --add "/Applications/WhatsApp.app"
   dockutil --add "/System/Applications/Music.app"

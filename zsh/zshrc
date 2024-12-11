@@ -69,3 +69,4 @@ precmd() {
   vcs_info
   PROMPT="%* ${ret_directory}$(prompt_git) %F{magenta}❯ %f"
 }
+eval "$(mise activate zsh)"

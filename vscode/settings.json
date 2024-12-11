@@ -81,6 +81,7 @@
     "rust-analyzer.diagnostics.disabled": [
         "unresolved-proc-macro"
     ],
+    "editor.inlayHints.enabled": "offUnlessPressed",
     "files.autoSave": "onFocusChange",
     "githubPullRequests.pullBranch": "never",
 }
