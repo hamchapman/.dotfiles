@@ -77,6 +77,8 @@
   ss = "!f() { git stash save \"$1\"; }; f"
   # Pop the most recent stash
   sp = stash pop
+  # Cherry-pick the specified commit
+  cp = "!f() { git cherry-pick \"$1\"; }; f"
 [apply]
   # Detect whitespace errors when applying a patch
   whitespace = fix
@@ -131,3 +133,5 @@
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
+[maintenance]
+  repo = /Users/ham/ditto/ditto

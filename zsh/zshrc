@@ -1,9 +1,9 @@
 setopt localoptions promptsubst
 
-export EDITOR='code -w'
+export EDITOR='zed --wait'
 export GOPATH="$HOME/go"
 export GEM_HOME="$HOME/.gem"
-export DEFAULT_STABLE_RUBY="3.3.5"
+export DEFAULT_STABLE_RUBY="3.4.4"
 export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
 export ANDROID_HOME="$HOME/Library/Android/sdk"
 
@@ -13,7 +13,6 @@ for file ($HOME/.dotfiles/zsh/*.zsh) source $file
 REPORTTIME=10 # print elapsed time when command runs for more than 10 seconds
 
 # make GPG stuff work
-
 GPG_AGENT_SOCKET="$(gpgconf --list-dirs agent-ssh-socket)"
 if [ ! -S $GPG_AGENT_SOCKET ]; then
   gpg-agent --daemon --pinentry-program "${BREW_PREFIX}/bin/pinentry-mac" >/dev/null 2>&1
