@@ -28,6 +28,7 @@ alias gg='cd ~/ditto/ditto'
 ## Editor
 alias s='subl .'
 alias c='code .'
+alias z='zed .'
 
 ## macOS
 alias o='open .'
