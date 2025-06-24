@@ -10,6 +10,11 @@ done
 alias g='git s'
 alias gtt='gittower .'
 
+## jj
+
+alias j='jj'
+alias jgi='jj git init --colocate .'
+
 ## cd shortcuts
 
 # General

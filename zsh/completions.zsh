@@ -14,3 +14,6 @@ setopt always_to_end
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}' 'r:|=*' 'l:|=* r:|=*'
 
 unset CASE_SENSITIVE HYPHEN_INSENSITIVE
+
+# jj completions
+source <(jj util completion zsh)
