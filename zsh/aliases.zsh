@@ -14,6 +14,7 @@ alias gtt='gittower .'
 
 alias j='jj'
 alias jgi='jj git init --colocate .'
+alias jnm='jj new main'
 
 ## cd shortcuts
 
