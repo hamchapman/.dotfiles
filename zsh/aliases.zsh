@@ -12,9 +12,11 @@ alias gtt='gittower .'
 
 ## jj
 
-alias j='jj'
-alias jgi='jj git init --colocate .'
+alias j='jj status'
+alias jl='jj l'
 alias jnm='jj new main'
+alias jprm='jj git push -r main'
+alias jgf='jj git fetch'
 
 ## cd shortcuts
 
