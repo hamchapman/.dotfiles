@@ -72,4 +72,4 @@ precmd() {
 eval "$(mise activate zsh)"
 
 # jj completions
-source <(jj util completion zsh)
+source <(COMPLETE=zsh jj)
