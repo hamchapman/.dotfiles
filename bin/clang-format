@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-exec clang-format-11 "$@"
