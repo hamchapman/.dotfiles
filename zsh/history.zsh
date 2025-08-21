@@ -26,7 +26,7 @@ setopt share_history # share command history data
 # Borrowed from oh-my-zsh (ish) for history
 
 bindkey -e # Use emacs key bindings
-bindkey '^r' history-incremental-search-backward
+# bindkey '^r' history-incremental-search-backward # Commented out to allow fzf history search
 
 autoload -Uz up-line-or-beginning-search
 zle -N up-line-or-beginning-search

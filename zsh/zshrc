@@ -36,6 +36,10 @@ source "${BREW_PREFIX}/opt/chruby/share/chruby/auto.sh"
 # git-subrepo
 source "$HOME/dev/git-subrepo/.rc"
 
+# Disable "interactive comments", so in an interactive shell, commands prefixed
+# with a # don't usually lead to a "command not found" error
+setopt interactivecomments
+
 # Set up the actual prompt
 precmd() {
   setopt extendedglob
