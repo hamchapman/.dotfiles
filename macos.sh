@@ -100,14 +100,14 @@ $HOME/.dotfiles/defaults.sh
 install_stable_ruby() (
   # 1. Get latest stable Ruby version
   local ruby_ver
-  ruby_ver=$(ruby-install --update | awk 'flag{ if (/jruby:/){printf "%s", buf; flag=0; buf=""} else buf = buf $0 ORS}; /ruby:/{flag=1}' | tail -1 | tr -d '[:space:]')
+  ruby_ver=$("${BREW_PREFIX}/bin/ruby-install" --update | awk 'flag{ if (/jruby:/){printf "%s", buf; flag=0; buf=""} else buf = buf $0 ORS}; /ruby:/{flag=1}' | tail -1 | tr -d '[:space:]')
 
   # 2. Install the latest stable Ruby version, if not already installed
   if [[ -d "$HOME/.rubies/ruby-${ruby_ver}" ]]; then
     echo "Ruby ${ruby_ver} already installed"
   else
     echo "Installing Ruby ${ruby_ver}"
-    ruby-install ruby $ruby_ver
+    "${BREW_PREFIX}/bin/ruby-install" ruby $ruby_ver
   fi
 
   # 3. Ensure that the `chruby` function is available
@@ -124,15 +124,15 @@ install_stable_ruby
 # Install latest Xcode
 
 # Call this once on its own to trigger any required login
-xcodes list
+"${BREW_PREFIX}/bin/xcodes" list
 
 # Install latest non-prerelease version of Xcode
-xcodes install --latest --experimental-unxip
+"${BREW_PREFIX}/bin/xcodes" install --latest --experimental-unxip
 
 # Install sourcekitten now that Xcode is installed
 "${BREW_BIN}" install sourcekitten
 
-# Create NVM's working directory
+# Ensure nvm's working directory is created
 mkdir -p "$HOME/.nvm"
 
 # Install Node version(s)
