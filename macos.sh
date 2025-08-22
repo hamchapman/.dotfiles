@@ -77,12 +77,6 @@ open $HOME/.dotfiles/terminal_themes/Chalk.terminal
 # Store brew prefix in brew.zsh
 echo "export BREW_PREFIX=\"${BREW_PREFIX}\"" > "$HOME/.dotfiles/zsh/brew.zsh"
 
-# We need to open VSCode to make the required directories be created
-open "/Applications/Visual Studio Code.app"
-
-# Ensure VSCode settings are in the right place
-ln -sf "$HOME/.dotfiles/vscode/settings.json" "$HOME/Library/Application Support/Code/User/settings.json"
-
 # Ensure that Ruby gems directory exists
 mkdir -p "$HOME/.gem"
 
@@ -94,10 +88,7 @@ git clone https://github.com/ingydotnet/git-subrepo "$HOME/dev/git-subrepo"
 "${BREW_PREFIX}/bin/mas" install 409201541 # Pages
 "${BREW_PREFIX}/bin/mas" install 409203825 # Numbers
 "${BREW_PREFIX}/bin/mas" install 904280696 # Things 3
-"${BREW_PREFIX}/bin/mas" install 1295203466 # Microsoft Remote Desktop
-"${BREW_PREFIX}/bin/mas" install 1519867270 # Refined GitHub Safari Extension
 "${BREW_PREFIX}/bin/mas" install 1640236961 # Save to Reader Safari Extension
-"${BREW_PREFIX}/bin/mas" install 1590481717 # Save to Reflect Safari Extension
 
 # Add ssh key to keychain
 ssh-add --apple-use-keychain $HOME/.ssh/id_ed25519
