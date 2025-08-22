@@ -132,10 +132,9 @@ install_stable_ruby
 # Install sourcekitten now that Xcode is installed
 "${BREW_BIN}" install sourcekitten
 
-# Ensure nvm's working directory is created
-mkdir -p "$HOME/.nvm"
-
 # Install Node version(s)
+export NVM_DIR="$HOME/.nvm"
+[ -s "${BREW_PREFIX}/opt/nvm/nvm.sh" ] && . "${BREW_PREFIX}/opt/nvm/nvm.sh"
 nvm install --lts
 
 # Install Rust

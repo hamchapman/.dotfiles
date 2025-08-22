@@ -24,6 +24,7 @@ fi
 ulimit -n 65536
 
 eval "$(direnv hook zsh)"
+eval "$(mise activate zsh)"
 
 # Load NVM
 export NVM_DIR="$HOME/.nvm"
@@ -72,8 +73,3 @@ precmd() {
   vcs_info
   PROMPT="%* ${ret_directory}$(prompt_git) %F{magenta}❯ %f"
 }
-
-eval "$(mise activate zsh)"
-
-# jj completions
-source <(COMPLETE=zsh jj)
