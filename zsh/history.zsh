@@ -116,7 +116,6 @@ fzf_history_search() {
   return $ret
 }
 
-autoload fzf_history_search
 zle -N fzf_history_search
 
 bindkey $ZSH_FZF_HISTORY_SEARCH_BIND fzf_history_search
