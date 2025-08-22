@@ -82,7 +82,7 @@ mkdir -p "$HOME/.gem"
 
 # Clone git-subrepo
 mkdir -p "$HOME/dev"
-git clone https://github.com/ingydotnet/git-subrepo "$HOME/dev/git-subrepo"
+git -C "$HOME/dev/git-subrepo" pull || git clone https://github.com/ingydotnet/git-subrepo "$HOME/dev/git-subrepo"
 
 "${BREW_PREFIX}/bin/mas" install 409183694 # Keynote
 "${BREW_PREFIX}/bin/mas" install 409201541 # Pages
