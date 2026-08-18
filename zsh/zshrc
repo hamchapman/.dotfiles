@@ -24,7 +24,7 @@ fi
 ulimit -n 65536
 
 eval "$(direnv hook zsh)"
-eval "$(mise activate zsh)"
+(( $+commands[mise] )) && eval "$(mise activate zsh)"
 
 # Load NVM
 export NVM_DIR="$HOME/.nvm"
