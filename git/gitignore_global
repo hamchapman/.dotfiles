@@ -40,3 +40,5 @@ dump.rdb
 ######################
 DESIRED_CHANGES.md
 .envrc
+
+**/.claude/settings.local.json

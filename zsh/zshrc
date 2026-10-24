@@ -7,8 +7,20 @@ export DEFAULT_STABLE_RUBY="3.4.4"
 export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
 export ANDROID_HOME="$HOME/Library/Android/sdk"
 
-# Load files
-for file ($HOME/.dotfiles/zsh/*.zsh) source $file
+# Load files. brew.zsh and path.zsh must load first: several other files
+# (e.g. history.zsh's fzf detection) depend on PATH already including
+# Homebrew's bin dir. On a fresh login shell, macOS's path_helper resets
+# PATH to just the system defaults, so without this explicit ordering,
+# anything relying on Homebrew-installed tools being found during the
+# alphabetical *.zsh load would silently fail to detect them.
+source $HOME/.dotfiles/zsh/brew.zsh
+source $HOME/.dotfiles/zsh/path.zsh
+for file ($HOME/.dotfiles/zsh/*.zsh); do
+  case "$file" in
+    */brew.zsh|*/path.zsh) continue ;;
+  esac
+  source $file
+done
 
 REPORTTIME=10 # print elapsed time when command runs for more than 10 seconds
 
@@ -26,9 +38,32 @@ ulimit -n 65536
 eval "$(direnv hook zsh)"
 (( $+commands[mise] )) && eval "$(mise activate zsh)"
 
-# Load NVM
+# Load NVM lazily. Sourcing nvm.sh normally also auto-activates the default
+# (or .nvmrc) Node version right away, which means resolving/verifying a
+# Node install on *every* shell start. `--no-use` skips that and just
+# defines `nvm` + completions (~5ms). To keep `node`/`npm`/`npx`/`nvm`
+# working transparently, stub them so the real environment (respecting
+# .nvmrc, falling back to the default alias) is loaded on first actual use.
 export NVM_DIR="$HOME/.nvm"
-[ -s "${BREW_PREFIX}/opt/nvm/nvm.sh" ] && . "${BREW_PREFIX}/opt/nvm/nvm.sh"
+if [ -s "${BREW_PREFIX}/opt/nvm/nvm.sh" ]; then
+  . "${BREW_PREFIX}/opt/nvm/nvm.sh" --no-use
+
+  load_nvm() {
+    unset -f node npm npx nvm load_nvm
+    export NVM_DIR="$HOME/.nvm"
+    . "${BREW_PREFIX}/opt/nvm/nvm.sh"
+    if [ -f .nvmrc ]; then
+      nvm use
+    else
+      nvm use default
+    fi
+  }
+
+  node() { load_nvm; node "$@" }
+  npm() { load_nvm; npm "$@" }
+  npx() { load_nvm; npx "$@" }
+  nvm() { load_nvm; nvm "$@" }
+fi
 
 # Ruby
 source "${BREW_PREFIX}/opt/chruby/share/chruby/chruby.sh"
@@ -70,6 +105,5 @@ precmd() {
 
   unset current_pwd
 
-  vcs_info
-  PROMPT="%* ${ret_directory}$(prompt_git) %F{magenta}❯ %f"
+  PROMPT="%* ${ret_directory}$(prompt_vcs) %F{magenta}❯ %f"
 }

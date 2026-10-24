@@ -3,7 +3,7 @@
 git_aliases=("${(@f)$(git al)}")
 
 for al in ${git_aliases[@]}; do
-  just_alias=$(echo $al | cut -f1 -d' ')
+  just_alias="${al%% *}"
   alias "g$just_alias"="git $just_alias"
 done
 
