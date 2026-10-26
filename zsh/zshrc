@@ -46,8 +46,16 @@ ulimit -n 65536
 (( $+commands[mise] )) && eval "$(mise activate zsh)"
 
 # Ruby
-[[ -r "${BREW_PREFIX}/opt/chruby/share/chruby/chruby.sh" ]] && source "${BREW_PREFIX}/opt/chruby/share/chruby/chruby.sh"
-[[ -r "${BREW_PREFIX}/opt/chruby/share/chruby/auto.sh" ]] && source "${BREW_PREFIX}/opt/chruby/share/chruby/auto.sh"
+# Load chruby (and its .ruby-version auto-switching) on first use rather than
+# on every shell start. Run `ru` or `chruby <version>` to enable Ruby.
+chruby() {
+  local chruby_dir="${BREW_PREFIX}/opt/chruby/share/chruby"
+  [[ -r "$chruby_dir/chruby.sh" ]] || { echo "chruby: not installed" >&2; return 1; }
+  unfunction chruby
+  source "$chruby_dir/chruby.sh"
+  source "$chruby_dir/auto.sh"
+  chruby "$@"
+}
 
 # Disable "interactive comments", so in an interactive shell, commands prefixed
 # with a # don't usually lead to a "command not found" error

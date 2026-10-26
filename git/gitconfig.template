@@ -135,4 +135,6 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 [maintenance]
-  repo = /Users/ham/ditto/ditto
+  repo = ~/ditto/ditto
+[includeIf "gitdir:~/ditto/"]
+  path = ~/.gitconfig-ditto

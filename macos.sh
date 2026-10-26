@@ -61,6 +61,7 @@ sed -i '' -e "s|___BREW_PREFIX___|${BREW_PREFIX}|" $HOME/.dotfiles/gnupg/gpg-age
 ln -sf $HOME/.dotfiles/zsh/zshrc $HOME/.zshrc
 ln -sf $HOME/.dotfiles/git/gitconfig $HOME/.gitconfig
 ln -sf $HOME/.dotfiles/git/gitignore_global $HOME/.gitignore_global
+ln -sf $HOME/.dotfiles/git/gitconfig-ditto $HOME/.gitconfig-ditto
 ln -sf $HOME/.dotfiles/gnupg/gpg-agent.conf $HOME/.gnupg/gpg-agent.conf
 ln -sf $HOME/.dotfiles/.gemrc $HOME/.gemrc
 
