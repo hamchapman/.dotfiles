@@ -72,6 +72,11 @@ open $HOME/.dotfiles/terminal_themes/Chalk.terminal
 "${BREW_BIN}" bundle --file="$HOME/.dotfiles/Brewfile" || true
 "${BREW_BIN}" bundle --file="$HOME/.dotfiles/Brewfile.cask" || true
 
+# The Homebrew installer leaves share/ group-writable, which makes compinit
+# flag the completion dirs as insecure and prompt on every shell start.
+chmod go-w "${BREW_PREFIX}/share"
+[[ -d "${BREW_PREFIX}/share/zsh" ]] && chmod -R go-w "${BREW_PREFIX}/share/zsh"
+
 # Remove brew cruft
 "${BREW_BIN}" cleanup
 
