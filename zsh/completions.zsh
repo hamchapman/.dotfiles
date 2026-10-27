@@ -1,5 +1,19 @@
-autoload -U compinit
+# All completion paths must be present before compinit builds its cache.
+typeset -U fpath
+fpath=(
+  "${BREW_PREFIX}/share/zsh/site-functions"
+  "${BREW_PREFIX}/share/zsh-completions"
+  "$HOME/.zsh/completions"
+  $fpath
+)
+autoload -Uz compinit
 compinit
+
+# The installed clap wrapper registers its dynamic handler when sourced. Do
+# that directly so the first Tab works, without running jj during startup.
+if [[ -r "${BREW_PREFIX}/share/zsh/site-functions/_jj" ]]; then
+  source "${BREW_PREFIX}/share/zsh/site-functions/_jj"
+fi
 
 unsetopt nomatch
 setopt auto_cd
@@ -14,5 +28,3 @@ setopt always_to_end
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}' 'r:|=*' 'l:|=* r:|=*'
 
 unset CASE_SENSITIVE HYPHEN_INSENSITIVE
-
-(( $+commands[jj] )) && source <(COMPLETE=zsh jj)

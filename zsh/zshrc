@@ -15,6 +15,17 @@ export ANDROID_HOME="$HOME/Library/Android/sdk"
 # alphabetical *.zsh load would silently fail to detect them.
 source $HOME/.dotfiles/zsh/brew.zsh
 source $HOME/.dotfiles/zsh/path.zsh
+
+# git-subrepo's paths are known, so no dirname/cd subprocess is needed.
+# Register its completion directory before completions.zsh runs compinit.
+if [[ -d "$HOME/dev/git-subrepo" ]]; then
+  export GIT_SUBREPO_ROOT="$HOME/dev/git-subrepo"
+  path=("$GIT_SUBREPO_ROOT/lib" $path)
+  if [[ ":$MANPATH:" != *":$GIT_SUBREPO_ROOT/man:"* ]]; then
+    export MANPATH="$GIT_SUBREPO_ROOT/man${MANPATH:+:$MANPATH}:"
+  fi
+  fpath=("$GIT_SUBREPO_ROOT/share/zsh-completion" $fpath)
+fi
 for file ($HOME/.dotfiles/zsh/*.zsh); do
   case "$file" in
     */brew.zsh|*/path.zsh) continue ;;
@@ -24,53 +35,19 @@ done
 
 REPORTTIME=10 # print elapsed time when command runs for more than 10 seconds
 
-# make GPG stuff work
-GPG_AGENT_SOCKET="$(gpgconf --list-dirs agent-ssh-socket)"
-if [ ! -S $GPG_AGENT_SOCKET ]; then
-  gpg-agent --daemon --pinentry-program "${BREW_PREFIX}/bin/pinentry-mac" >/dev/null 2>&1
-  export GPG_TTY=$(tty)
-fi
+# GnuPG starts its agent on demand. Each terminal needs its own TTY.
+[[ -t 0 ]] && export GPG_TTY=$TTY
 
 ## Randoms
 
 ulimit -n 65536
 
-eval "$(direnv hook zsh)"
+(( $+commands[direnv] )) && eval "$(direnv hook zsh)"
 (( $+commands[mise] )) && eval "$(mise activate zsh)"
 
-# Load NVM lazily. Sourcing nvm.sh normally also auto-activates the default
-# (or .nvmrc) Node version right away, which means resolving/verifying a
-# Node install on *every* shell start. `--no-use` skips that and just
-# defines `nvm` + completions (~5ms). To keep `node`/`npm`/`npx`/`nvm`
-# working transparently, stub them so the real environment (respecting
-# .nvmrc, falling back to the default alias) is loaded on first actual use.
-export NVM_DIR="$HOME/.nvm"
-if [ -s "${BREW_PREFIX}/opt/nvm/nvm.sh" ]; then
-  . "${BREW_PREFIX}/opt/nvm/nvm.sh" --no-use
-
-  load_nvm() {
-    unset -f node npm npx nvm load_nvm
-    export NVM_DIR="$HOME/.nvm"
-    . "${BREW_PREFIX}/opt/nvm/nvm.sh"
-    if [ -f .nvmrc ]; then
-      nvm use
-    else
-      nvm use default
-    fi
-  }
-
-  node() { load_nvm; node "$@" }
-  npm() { load_nvm; npm "$@" }
-  npx() { load_nvm; npx "$@" }
-  nvm() { load_nvm; nvm "$@" }
-fi
-
 # Ruby
-source "${BREW_PREFIX}/opt/chruby/share/chruby/chruby.sh"
-source "${BREW_PREFIX}/opt/chruby/share/chruby/auto.sh"
-
-# git-subrepo
-source "$HOME/dev/git-subrepo/.rc"
+[[ -r "${BREW_PREFIX}/opt/chruby/share/chruby/chruby.sh" ]] && source "${BREW_PREFIX}/opt/chruby/share/chruby/chruby.sh"
+[[ -r "${BREW_PREFIX}/opt/chruby/share/chruby/auto.sh" ]] && source "${BREW_PREFIX}/opt/chruby/share/chruby/auto.sh"
 
 # Disable "interactive comments", so in an interactive shell, commands prefixed
 # with a # don't usually lead to a "command not found" error
@@ -78,7 +55,7 @@ setopt interactivecomments
 
 # Set up the actual prompt
 precmd() {
-  setopt extendedglob
+  setopt localoptions extendedglob
 
   local current_pwd="${PWD/#$HOME/~}"
   local ret_directory
@@ -97,7 +74,7 @@ precmd() {
   elif [ ${#pcs[@]} -ge $((full_pc_len + 1)) ]; then
     local path_full_comps=$((pcs_len - full_pc_len))
     local short_path_comps="${(@j:/:M)${pcs[@]:0:$((path_full_comps))}##.#?}"
-    local full_path_comps="/${${(@j:/:)${pcs[@]:$((pcs_len - full_pc_len)):$((full_pc_len))}}//\%/%%}"
+    local full_path_comps="/${(@j:/:)${pcs[@]:$((pcs_len - full_pc_len)):$((full_pc_len))}}"
     ret_directory="${short_path_comps}${full_path_comps}"
   else
     ret_directory="${current_pwd}"
@@ -105,5 +82,8 @@ precmd() {
 
   unset current_pwd
 
-  PROMPT="%* ${ret_directory}$(prompt_vcs) %F{magenta}❯ %f"
+  _prompt_directory="${ret_directory//\%/%%}"
+  _vcs_update
+  # Expand variables at display time, including after an async VCS result.
+  PROMPT='%* ${_prompt_directory}${_vcs_segment} %F{magenta}❯ %f'
 }

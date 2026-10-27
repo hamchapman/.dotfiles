@@ -1,117 +1,124 @@
-# Fast VCS prompt segment: git and jj, each with a single subprocess call.
-##
-# Here we're doing exactly one VCS subprocess call per prompt - git:
-# `status --porcelain=2 --branch`; jj: one templated `jj log` - and only
-# forks at all once a repo root is actually found (the upward search for
-# .jj/.git is pure zsh, no forks).
-#
-# $BRANCH / $DETACHED are optional icon/text prefixes (left empty by
-# default, same as before) you can set elsewhere in your config.
+# VCS queries run outside the prompt path. Pending results show an ellipsis,
+# never an old clean indicator, and redraw through ZLE when ready.
+typeset -g _vcs_segment=''
+typeset -g _vcs_fd=''
+typeset -g _vcs_request_pwd=''
+typeset -gi _vcs_epoch=0 _vcs_request_epoch=0
 
 _vcs_find_root() {
-  # Walk up from $PWD looking for the nearest .jj or .git. jj wins if a
-  # directory has both (a colocated repo) since jj is the source of truth
-  # for working-copy state there.
-  local d="$PWD"
+  local d=$PWD
+  REPLY=''
   while true; do
-    if [[ -d "$d/.jj" ]]; then
-      print -r -- "jj:$d"
-      return
-    elif [[ -e "$d/.git" ]]; then
-      print -r -- "git:$d"
-      return
+    # Git provides live branch/filesystem state in colocated repos without
+    # snapshotting or signing a Jujutsu working-copy commit.
+    if [[ -e "$d/.git" ]]; then
+      REPLY="git:$d"
+      return 0
+    elif [[ -d "$d/.jj" ]]; then
+      REPLY="jj:$d"
+      return 0
     fi
-    [[ "$d" == "/" ]] && return
-    d="${d:h}"
+    [[ "$d" == / ]] && return 1
+    d=${d:h}
   done
 }
 
 _prompt_git() {
-  # $1 = git root dir (already found by the pure-zsh upward walk, so we
-  # don't need to fork git again just to locate it).
-  local root="$1"
-  local out ref line dirty=0 head="" action=""
-  out="$(git status --porcelain=2 --branch --ignore-submodules=dirty 2>/dev/null)" || return
-  [[ -z "$out" ]] && return
+  local root=$1 out line head='' oid='' action='' dirty=0 ref
+  out=$(GIT_OPTIONAL_LOCKS=0 command git -C "$root" status \
+    --porcelain=2 --branch --ignore-submodules=dirty 2>/dev/null) || return
+  [[ -n "$out" ]] || return
 
-  # Only check for an in-progress rebase/merge when .git is a plain
-  # directory. Worktrees/submodules use a .git *file* pointing elsewhere;
-  # skip action detection there rather than forking git again just for this.
   local gitdir="$root/.git"
-  if [[ -d "$gitdir" ]]; then
-    if [[ -d "$gitdir/rebase-merge" || -d "$gitdir/rebase-apply" ]]; then
-      action="rebase"
-    elif [[ -f "$gitdir/MERGE_HEAD" ]]; then
-      action="merge"
-    fi
+  if [[ -f "$gitdir" ]]; then
+    IFS= read -r line < "$gitdir"
+    gitdir=${line#gitdir: }
+    [[ "$gitdir" == /* ]] || gitdir="$root/$gitdir"
+  fi
+  if [[ -d "$gitdir/rebase-merge" || -d "$gitdir/rebase-apply" ]]; then
+    action=' (rebase)'
+  elif [[ -f "$gitdir/MERGE_HEAD" ]]; then
+    action=' (merge)'
   fi
 
-  while IFS= read -r line; do
-    case "$line" in
-      "# branch.head "*) head="${line#\# branch.head }" ;;
-      "# branch.oid "*) [[ -z "$head" || "$head" == "(detached)" ]] && ref="${${line#\# branch.oid }[1,8]}" ;;
-      "#"*) ;; # other header lines, ignore
+  for line in "${(@f)out}"; do
+    case $line in
+      '# branch.head '*) head=${line#\# branch.head } ;;
+      '# branch.oid '*) oid=${line#\# branch.oid } ;;
+      '# '*) ;;
       *) dirty=1 ;;
     esac
-  done <<< "$out"
-
-  if [[ "$head" == "(detached)" || -z "$head" ]]; then
-    ref="$DETACHED ${ref:-?}"
+  done
+  if [[ "$head" == '(detached)' || -z "$head" ]]; then
+    ref="${DETACHED}${oid[1,8]}"
   else
-    ref="$BRANCH $head"
+    ref="${BRANCH}${head}"
   fi
-  [[ -n "$action" ]] && ref="$ref ($action)"
-
+  ref="${ref//\%/%%}${action}"
   if (( dirty )); then
-    print -n "%F{red}${ref}%f"
+    print -r -- " %F{red}${ref}%f"
   else
-    print -n "%F{green}${ref}%f"
+    print -r -- " %F{green}${ref}%f"
   fi
 }
 
 _prompt_jj() {
-  # One templated `jj log` call gives us the bookmark (git "branch"
-  # equivalent), a short change id (for the "detached"/no-bookmark case,
-  # like git's short commit hash), and whether @ is empty. A non-empty
-  # working-copy commit is jj's closest equivalent of git's "dirty
-  # worktree" - there's no index/staging distinction in jj, so as soon as
-  # you touch a file it's recorded into @, same signal git gives you via
-  # an uncommitted diff.
-  local out bookmark change_id empty_flag ref
-  out="$(jj log --no-pager -r @ --no-graph --ignore-working-copy \
-    -T 'bookmarks.join(",") ++ "|||" ++ change_id.shortest(8) ++ "|||" ++ empty' \
-    2>/dev/null)" || return
-  [[ -z "$out" ]] && return
+  # No live Git working tree is available in standalone jj repos. Explicitly
+  # label the recorded snapshot and make no claim about filesystem cleanliness.
+  local ref
+  ref=$(command jj -R "$1" log --no-pager -r @ --no-graph \
+    --ignore-working-copy -T 'bookmarks.join(",") ++ " " ++ change_id.shortest(8)' \
+    2>/dev/null) || return
+  [[ -n "$ref" ]] && print -r -- " %F{cyan}jj snapshot:${ref//\%/%%}%f"
+}
 
-  local parts
-  parts=("${(@s:|||:)out}")
-  bookmark="${parts[1]}"
-  change_id="${parts[2]}"
-  empty_flag="${parts[3]}"
-
-  if [[ -n "$bookmark" ]]; then
-    ref="$BRANCH $bookmark"
-  else
-    ref="$DETACHED $change_id"
-  fi
-
-  if [[ "$empty_flag" == "false" ]]; then
-    print -n "%F{red}${ref}%f"
-  else
-    print -n "%F{green}${ref}%f"
+_vcs_stop() {
+  if [[ -n "$_vcs_fd" ]]; then
+    zle -F "$_vcs_fd" 2>/dev/null
+    exec {_vcs_fd}<&-
+    _vcs_fd=''
   fi
 }
 
-prompt_vcs() {
-  local found kind root
-  found="$(_vcs_find_root)"
-  [[ -z "$found" ]] && return
-  kind="${found%%:*}"
-  root="${found#*:}"
-
-  if [[ "$kind" == "jj" ]]; then
-    _prompt_jj
+_vcs_ready() {
+  local fd=$1 segment=''
+  [[ "$fd" == "$_vcs_fd" ]] || return
+  local request_pwd=$_vcs_request_pwd request_epoch=$_vcs_request_epoch
+  # EOF can arrive with the final line; read it before closing the descriptor.
+  IFS= read -r -u "$fd" segment
+  _vcs_stop
+  if [[ "$PWD" == "$request_pwd" && $_vcs_epoch == $request_epoch ]]; then
+    _vcs_segment=$segment
   else
-    _prompt_git "$root"
+    # A command or directory change made this query obsolete. Start one fresh
+    # query now, rather than piling up Git processes while the user is typing.
+    _vcs_update
   fi
+  zle && zle reset-prompt
 }
+
+_vcs_update() {
+  _vcs_segment=''
+  _vcs_find_root || return 0
+  _vcs_segment=' %F{yellow}…%f'
+  [[ -n "$_vcs_fd" ]] && return 0
+  local kind=${REPLY%%:*} root=${REPLY#*:}
+  _vcs_request_pwd=$PWD
+  _vcs_request_epoch=$_vcs_epoch
+  exec {_vcs_fd}< <(
+    if [[ "$kind" == git ]]; then
+      _prompt_git "$root"
+    else
+      _prompt_jj "$root"
+    fi
+  )
+  zle -F "$_vcs_fd" _vcs_ready
+}
+
+_vcs_invalidate() {
+  (( _vcs_epoch += 1 ))
+}
+
+autoload -Uz add-zsh-hook
+add-zsh-hook preexec _vcs_invalidate
+add-zsh-hook zshexit _vcs_stop

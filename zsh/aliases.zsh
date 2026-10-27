@@ -1,9 +1,9 @@
 ## Git - see gitconfig for description of functionality
 
-git_aliases=("${(@f)$(git al)}")
+git_aliases=("${(@f)$(git config --get-regexp '^alias\.')}")
 
 for al in ${git_aliases[@]}; do
-  just_alias="${al%% *}"
+  just_alias="${${al%% *}#alias.}"
   alias "g$just_alias"="git $just_alias"
 done
 
@@ -34,7 +34,6 @@ alias ddd='cd ~/ditto/ditto'
 alias gg='cd ~/ditto/ditto'
 
 ## Editor
-alias s='subl .'
 alias c='code .'
 alias z='zed .'
 
@@ -42,7 +41,7 @@ alias z='zed .'
 alias o='open .'
 
 ## Misc
-alias reload='source ~/.zshrc'
+alias reload='exec zsh'
 alias be='bundle exec'
 alias ru="chruby ruby-${DEFAULT_STABLE_RUBY}"
 alias prune='brew cleanup && gem cleanup && docker system prune && xcrun simctl delete unavailable'
