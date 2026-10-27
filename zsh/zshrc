@@ -1,6 +1,6 @@
 setopt localoptions promptsubst
 
-export EDITOR='zed --wait'
+export EDITOR='zed --new --wait'
 export GOPATH="$HOME/go"
 export GEM_HOME="$HOME/.gem"
 export DEFAULT_STABLE_RUBY="3.4.4"

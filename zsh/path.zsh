@@ -17,3 +17,4 @@ export PATH="$PATH:$HOME/.puro/bin" # Added by Puro
 export PATH="$PATH:$HOME/.puro/shared/pub_cache/bin" # Added by Puro
 export PATH="$PATH:$HOME/.puro/envs/default/flutter/bin" # Added by Puro
 export PATH="$PATH:$HOME/.lmstudio/bin"
+export PATH="$PATH:$HOME/.local/bin"
