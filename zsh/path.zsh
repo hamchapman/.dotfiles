@@ -1,3 +1,5 @@
+typeset -U PATH path
+
 export PATH="/usr/local/bin:/usr/bin:/usr/sbin:/sbin:/usr/local/go/bin:$PATH"
 export PATH="${BREW_PREFIX}/bin:$PATH"
 export PATH="${BREW_PREFIX}/sbin:$PATH"
@@ -10,7 +12,6 @@ export PATH="$PATH:${BREW_PREFIX}/opt/gnu-sed/libexec/gnubin" # GNU sed
 export PATH="$PATH:$HOME/Library/Android/sdk/emulator"
 export PATH="$PATH:$HOME/Library/Android/sdk/platform-tools"
 export PATH="$PATH:$HOME/.dotnet/tools"
-export PATH="$PATH:${KREW_ROOT:-$HOME/.krew}/bin"
 export PATH="$PATH:$HOME/.codeium/windsurf/bin"
 export PATH="$PATH:$HOME/.puro/bin" # Added by Puro
 export PATH="$PATH:$HOME/.puro/shared/pub_cache/bin" # Added by Puro
@@ -18,4 +19,4 @@ export PATH="$PATH:$HOME/.puro/envs/default/flutter/bin" # Added by Puro
 export PURO_ROOT="$HOME/.puro"
 export PUB_CACHE="$PURO_ROOT/shared/pub_cache"
 export PATH="$PATH:$HOME/.lmstudio/bin"
-export PATH="$PATH:$HOME/.local/bin"
+export PATH="$HOME/.local/bin:$PATH"

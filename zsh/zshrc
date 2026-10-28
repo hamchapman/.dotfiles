@@ -63,7 +63,11 @@ setopt interactivecomments
 
 # Set up the actual prompt
 precmd() {
+  local command_status=$?
   setopt localoptions extendedglob
+
+  _prompt_arrow_color=magenta
+  (( command_status )) && _prompt_arrow_color=red
 
   local current_pwd="${PWD/#$HOME/~}"
   local ret_directory
@@ -93,5 +97,5 @@ precmd() {
   _prompt_directory="${ret_directory//\%/%%}"
   _vcs_update
   # Expand variables at display time, including after an async VCS result.
-  PROMPT='%* ${_prompt_directory}${_vcs_segment} %F{magenta}❯ %f'
+  PROMPT='%* ${_prompt_directory}${_vcs_segment} %F{${_prompt_arrow_color}}❯ %f'
 }
