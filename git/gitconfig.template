@@ -20,7 +20,7 @@
   # Log in short format, with colour
   l = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
   # Prune local branches that have been merged
-  prunel = !git branch --merged | tr -d '*' | grep -v dev | xargs -n1 git branch -d
+  prunel = !git-prunel
   # List contributors with number of commits
   con = shortlog --summary --numbered
   # Show all branches, sorted by most recent commit activity
@@ -93,11 +93,12 @@
   gpgsign = true
 [push]
   default = current
-  conflictStyle = zdiff3
 [credential]
-  helper = store
+  # Clear inherited helpers before selecting the macOS Keychain helper.
+  helper =
+  helper = osxkeychain
 [color]
-  ui = always
+  ui = auto
 [color "diff-highlight"]
   oldNormal = red
   oldHighlight = red 52
@@ -111,11 +112,9 @@
   new = green
   whitespace = red reverse
 [help]
-  autocorrect = 1
+  autocorrect = prompt
 [pull]
   rebase = true
-[credential]
-  helper = osxkeychain
 [gpg]
   program = ___BREW_PREFIX___/bin/gpg
 [rebase]
@@ -137,3 +136,12 @@
   repo = ~/ditto/ditto
 [includeIf "gitdir:~/ditto/"]
   path = ~/.gitconfig-ditto
+
+[credential "https://github.com"]
+  # Replace the general helper for GitHub with the GitHub CLI login.
+  helper =
+  helper = !___BREW_PREFIX___/bin/gh auth git-credential
+
+[credential "https://gist.github.com"]
+  helper =
+  helper = !___BREW_PREFIX___/bin/gh auth git-credential

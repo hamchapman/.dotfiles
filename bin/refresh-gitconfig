@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Render the tracked template to the ignored configuration used by Git.
+set -euo pipefail
+root=$(cd "$(dirname "$0")/.." && pwd)
+prefix=${BREW_PREFIX:-$(brew --prefix)}
+# Escape the characters special to the sed replacement.
+escaped=$(printf '%s' "$prefix" | sed 's/[\\&|]/\\&/g')
+tmp=$(mktemp "$root/git/.gitconfig.XXXXXXXX")
+trap 'rm -f "$tmp"' EXIT
+sed "s|___BREW_PREFIX___|$escaped|g" "$root/git/gitconfig.template" > "$tmp"
+chmod 600 "$tmp"
+mv -f "$tmp" "$root/git/gitconfig"

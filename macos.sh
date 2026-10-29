@@ -32,15 +32,18 @@ echo | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/ins
 
 BREW_BIN=""
 
-if [[ -f "/usr/local/bin/brew" ]]; then
+if [[ "$(uname -m)" == arm64 && -x "/opt/homebrew/bin/brew" ]]; then
+  BREW_BIN="/opt/homebrew/bin/brew"
+elif [[ -x "/usr/local/bin/brew" ]]; then
   BREW_BIN="/usr/local/bin/brew"
-elif [[ -f "/opt/homebrew/bin/brew" ]]; then
+elif [[ -x "/opt/homebrew/bin/brew" ]]; then
   BREW_BIN="/opt/homebrew/bin/brew"
 else
   echo "brew not found in one of the expected locations"
   exit 1
 fi
 
+export BREW_PREFIX
 BREW_PREFIX=$("${BREW_BIN}" --prefix)
 
 # Create file for secrets, if it doesn't already exist
@@ -50,14 +53,15 @@ if [ ! -f "${SECRETS_FILE_PATH}" ]; then
 fi
 
 # Substitute proper `BREW_PREFIX` into gitconfig template
-cp $HOME/.dotfiles/git/gitconfig.template $HOME/.dotfiles/git/gitconfig
-sed -i '' -e "s|___BREW_PREFIX___|${BREW_PREFIX}|" $HOME/.dotfiles/git/gitconfig
+"$HOME/.dotfiles/bin/refresh-gitconfig"
 
 # Substitute proper `BREW_PREFIX` into gpg-agent.conf template
 cp $HOME/.dotfiles/gnupg/gpg-agent.conf.template $HOME/.dotfiles/gnupg/gpg-agent.conf
 sed -i '' -e "s|___BREW_PREFIX___|${BREW_PREFIX}|" $HOME/.dotfiles/gnupg/gpg-agent.conf
 
 # Do some useful linking
+mkdir -p "$HOME/.gnupg"
+chmod 700 "$HOME/.gnupg"
 ln -sf $HOME/.dotfiles/zsh/zshrc $HOME/.zshrc
 ln -sf $HOME/.dotfiles/git/gitconfig $HOME/.gitconfig
 ln -sf $HOME/.dotfiles/git/gitignore_global $HOME/.gitignore_global
@@ -69,8 +73,8 @@ ln -sf $HOME/.dotfiles/.gemrc $HOME/.gemrc
 open $HOME/.dotfiles/terminal_themes/Chalk.terminal
 
 # Install some default software
-"${BREW_BIN}" bundle --file="$HOME/.dotfiles/Brewfile" || true
-"${BREW_BIN}" bundle --file="$HOME/.dotfiles/Brewfile.cask" || true
+"${BREW_BIN}" bundle --file="$HOME/.dotfiles/Brewfile"
+"${BREW_BIN}" bundle --file="$HOME/.dotfiles/Brewfile.cask"
 
 # The Homebrew installer leaves share/ group-writable, which makes compinit
 # flag the completion dirs as insecure and prompt on every shell start.
@@ -97,7 +101,11 @@ git -C "$HOME/dev/git-subrepo" pull || git clone https://github.com/ingydotnet/g
 "${BREW_PREFIX}/bin/mas" install 1640236961 # Save to Reader Safari Extension
 
 # Add ssh key to keychain
-ssh-add --apple-use-keychain $HOME/.ssh/id_ed25519
+if [[ -f "$HOME/.ssh/id_ed25519" ]]; then
+  ssh-add --apple-use-keychain "$HOME/.ssh/id_ed25519"
+else
+  echo "No SSH key found at ~/.ssh/id_ed25519; add one to Keychain after creating or restoring it."
+fi
 
 # Set many default settings
 $HOME/.dotfiles/defaults.sh
@@ -123,7 +131,7 @@ install_stable_ruby() (
   chruby ruby-$ruby_ver
 
   # 5. Ensure DEFAULT_STABLE_RUBY env var is up-to-date
-  sed -i '' -e "s/export DEFAULT_STABLE_RUBY=\"$DEFAULT_STABLE_RUBY\"/export DEFAULT_STABLE_RUBY=\"${ruby_ver}\"/" $HOME/.dotfiles/zsh/zshrc
+  sed -i '' -e "s/^export DEFAULT_STABLE_RUBY=.*/export DEFAULT_STABLE_RUBY=\"${ruby_ver}\"/" "$HOME/.dotfiles/zsh/zshrc"
 )
 install_stable_ruby
 

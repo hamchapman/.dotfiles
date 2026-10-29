@@ -1,113 +1,43 @@
 #!/usr/bin/env bash
-# LICENSE: unlicense. This is free and unencumbered software released into the
-# public domain. see unlicense.org for full license
-#
-# From
-# https://github.com/llimllib/personal_code/blob/daab9eb1/homedir/.local/bin/rmtree
-
-RED="\033[0;31m"
-YELLOW="\033[0;33m"
-CLEAR="\033[0m"
-MAIN_BRANCH=${MAIN_BRANCH:-main}
-VERBOSE=
-
-function usage {
-    cat <<"EOF"
-rmtree [-vh] [-m <MAIN_BRANCH>] <worktree directory to delete>
-
-remove a worktree from a git repository. Assumes you're in a directory with
-folders representing both a worktree and the main branch of your project.
-
-FLAGS:
-
-    -h: print this help
-    -v: verbose mode
-    -m: MAIN_BRANCH defaults to `main`, and will check for `master` if that
-        doesn't exist. Use this flag to pass a different main branch name.
-        You may also set the MAIN_BRANCH environment variable to set the
-        main branch name.
-
-EOF
-    exit 1
-}
-
-function die {
-    # if verbose was set, and we're exiting early, make sure that we set +x to
-    # stop the shell echoing verbosely
-    if [ -n "$VERBOSE" ]; then
-        set +x
-    fi
-    printf '%b%s%b\n' "$RED" "$1" "$CLEAR"
-    exit 1
-}
-
-function err {
-    printf '%b%s%b\n' "$YELLOW" "$1" "$CLEAR"
-}
-
-function warn {
-    printf '%b%s%b\n' "$YELLOW" "$1" "$CLEAR"
-}
-
-# rmtree <dir> will remove a worktree's directory, then prune the worktree list
-# and delete the branch
-function rmtree {
-    if [ -n "$VERBOSE" ]; then
-        set -x
-    fi
-
-    # verify that the first argument is a directory that exists, that we want
-    # to remove
-    if [ -z "$1" ]; then
-        die "You must provide a directory name that is a worktree to remove"
-    fi
-
-    # for each argument, delete the directory and remove the worktree
-    while [ -n "$1" ]; do
-        if [ ! -d "$1" ]; then
-            err "Unable to find directory $1, skipping"
-            shift
-            continue
-        fi
-
-        warn "removing $1"
-
-        # verify that the main branch exists
-        if [ ! -d "$MAIN_BRANCH" ]; then
-            # for legacy reasons, check "master" as a possibility for the main
-            # branch
-            if [ -d "master" ] ; then
-                MAIN_BRANCH=master
-            else
-                die "Could not find main branch directory <$MAIN_BRANCH>"
-            fi
-        fi
-
-        branch_name=$(cd "$1" && git rev-parse --abbrev-ref HEAD)
-        rm -rf "$1"
-        (cd "$MAIN_BRANCH" && git worktree prune && git branch -D "$branch_name")
-
-        shift
-    done
-}
-
-while true; do
-    case $1 in
-        help | -h | --help)
-            usage
-            ;;
-        -v | --verbose)
-            VERBOSE=true
-            shift
-            ;;
-        -m | --main-branch)
-            MAIN_BRANCH=$2
-            shift
-            ;;
-        *)
-            break
-            ;;
-    esac
+# Remove linked worktrees safely; preserve unmerged branches and dirty trees.
+set -euo pipefail
+main_dir=${MAIN_BRANCH:-main}
+while (($#)); do
+  case "$1" in
+    -h|--help) echo 'Usage: rmtree [-m main-directory] <worktree-directory>...'; exit 0 ;;
+    -m|--main-branch) [[ $# -ge 2 ]] || { echo 'Missing -m value' >&2; exit 1; }; main_dir=$2; shift 2 ;;
+    -v|--verbose) set -x; shift ;;
+    --) shift; break ;;
+    -*) echo "Unknown option: $1" >&2; exit 1 ;;
+    *) break ;;
+  esac
 done
-
-rmtree "$@"
+(($#)) || { echo 'Specify at least one worktree directory.' >&2; exit 1; }
+if [[ ! -d "$main_dir" && "$main_dir" == main && -d master ]]; then main_dir=master; fi
+[[ -d "$main_dir" ]] || { echo "Main directory not found: $main_dir" >&2; exit 1; }
+main_dir=$(cd "$main_dir" && pwd -P)
+git -C "$main_dir" rev-parse --git-dir >/dev/null
+result=0
+for target in "$@"; do
+  if [[ ! -d "$target" ]]; then echo "Directory not found: $target" >&2; result=1; continue; fi
+  target=$(cd "$target" && pwd -P)
+  if [[ "$target" == "$main_dir" ]]; then echo "Refusing to remove main directory: $target" >&2; result=1; continue; fi
+  found=0
+  while IFS= read -r -d '' entry; do
+    [[ "$entry" == "worktree $target" ]] && found=1
+  done < <(git -C "$main_dir" worktree list --porcelain -z)
+  if (( ! found )); then echo "Not a worktree in this repository: $target" >&2; result=1; continue; fi
+  branch=$(git -C "$target" symbolic-ref --quiet --short HEAD || true)
+  if [[ "$branch" == main || "$branch" == master ]]; then
+    echo "Refusing to remove primary branch worktree: $target" >&2; result=1; continue
+  fi
+  if ! git -C "$main_dir" worktree remove -- "$target"; then result=1; continue; fi
+  if [[ -n "$branch" ]]; then
+    if git -C "$main_dir" merge-base --is-ancestor "$branch" HEAD; then
+      git -C "$main_dir" branch -d -- "$branch" || { echo "Kept branch $branch." >&2; result=1; }
+    else
+      echo "Kept branch $branch: it is not merged into the main worktree's HEAD."
+    fi
+  fi
+done
+exit "$result"
